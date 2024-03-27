@@ -63,7 +63,7 @@ export const Signup = () => {
         </div>
       </div>
       <div className='rightPanel'>
-        <img src='https://th.bing.com/th/id/OIP.LX8z6k712jRImF8cuiKeGQAAAA?w=173&h=180&c=7&r=0&o=5&pid=1.7' className='login-img' alt='login-img' />
+        <img src='https://static.wixstatic.com/media/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png/v1/fill/w_583,h_549,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png' className='login-img' alt='login-img' />
       </div>
     </div>
   );
