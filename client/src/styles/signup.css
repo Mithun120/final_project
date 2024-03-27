@@ -1,19 +1,12 @@
-body {
-    background-color: #d4ebdc8a;
-  }
+ body {
+    background-color: #ae17e08a;
+  } 
   
   .login-bg {
     display: flex;
     height: 100vh;
   }
-  @keyframes moveRight {
-    0% {
-      transform: translateX(0); /* Initial position */
-    }
-    100% {
-      transform: translateX(100vw); /* Move to the right */
-    }
-  }
+
   
   .leftPanel,
   .rightPanel {
@@ -25,10 +18,11 @@ body {
      
   }
  .rightPanel{
-  animation: moveRight 10s linear infinite;
+  animation: moveForwardBackward 4s ease-in-out infinite;
  }
   .leftPanel{
     transition: 1000ms;
+    
     
   }
 
@@ -40,9 +34,10 @@ body {
     border-radius: 10px;
     background: linear-gradient(145deg, white 0%, rgba(255, 255, 255, 0) 100%);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 40vw;
-    height:80vh;
-    max-width: 400px;
+    width: 65%;
+    height:70vh;
+    
+    
     text-align: center;
   }
   
@@ -55,7 +50,7 @@ body {
   
   .login-form {
     margin-top: 10%;
-    line-height: 2;
+    line-height: 4;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,4 +244,12 @@ body {
       margin-left: 150px;
     }
     
+  }
+  @keyframes moveForwardBackward {
+    0%, 100% {
+      transform: translateZ(0);
+    }
+    50% {
+      transform: translateZ(-100px);
+    }
   }

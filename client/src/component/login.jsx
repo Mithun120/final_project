@@ -87,8 +87,12 @@ export const Login = () => {
   const [confirPass, setConfirmPass] = useState("");
   const [otp,setOtp]=useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [selectedLogin, setSelectedLogin] = useState(true);
+  const [selectedForget, setSelectedForget] = useState(false);
+  const [selectedOtp, setSelectedOtp] = useState(false);
+  const [selectedReset, setSelectedReset] = useState(false);
   const navigate = useNavigate();
- 
+
   // const auth=useAuth();
  
   const [loading, setLoading] = useState(false);
@@ -103,7 +107,7 @@ export const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('http://localhost:4000/login', {
         email: email,
         password:pass
       });
@@ -122,13 +126,51 @@ export const Login = () => {
 
     setLoading(false);
   };
-  
+  const handleResetPass = (e) => {
+    e.preventDefault();
+    if(pass !== confirPass) {
+      toast.warn("Mismatch");
+    }
+    else {
+      resetPassword(email, pass).then(() => {
+        toast.success("Password Changed successfully");
+        setSelectedReset(false);
+        setSelectedLogin(true);
+        setOtp("");
+        setEmail("");
+        setPass("");  
+      }).catch((error) => {
+        console.log(error)  ;
+      })
+    }
+  }
+  const handleGetMail = (e) => {
+    e.preventDefault();
+    if(selectedOption === "") {
+      toast.warn("Select Type of user");
+    }
+    else {
+      setLoading(true);
+      sendMail(email).then((response) => {
+        setLoading(false);
+        setSelectedOtp(true);
+        setSelectedForget(false);
+      }).catch((error) => {
+        toast.error("Invalid Email");
+        setLoading(false);     
+      })
+    }
+  }
+  const handleForgetPassword = () => {
+    setSelectedForget(true);
+    setSelectedLogin(false);
+  }
  
   return (
-    <div>
+    <div class='container'>
     <div className='login-bg'>
         <div className="leftPanel">
-            
+        {selectedLogin && (
               <div className='login-inner'>
                 <h1>
                     Login
@@ -144,14 +186,47 @@ export const Login = () => {
                     <label><span>Password:</span></label>
                     <Password style={{width:"100%"}}  feedback={false} onChange={(e) => setPass(e.target.value)} value={pass} placeholder='Enter your Password' toggleMask></Password>
                   </div>
+                  <span onClick={() => handleForgetPassword()} className='forget-pass'>Forgot Password?</span>
                       <Button className="login-button">Login</Button>
                   </form>
               </div>
+      )}
+      {selectedForget && (
+              <div className='login-inner'>
+                  <h1>Forget Password</h1>
+                  <form className='login-form' onSubmit={handleGetMail}>
+                  <div className='login-input-row'> 
+                    <label> <span>Email:</span></label>
+                    <InputText type='text' onChange={(e) => setEmail(e.target.value)} placeholder='Enter your E-Mail Address' style={{marginLeft: "35px"}}/>
+                  </div>
+                 
+                  <Button className="login-button" disabled = {(loading) ? true : false} icon = {(loading) ? "pi pi-spin pi-spinner" : ""}>Next</Button><br></br>
+                  <Button className="cancel-button" onClick={() => handleCancel()}>Cancel</Button>
+                </form>
+              </div>
+            )}
+            {selectedReset && (
+              <div className='login-inner'>
+                  <p>OTP Verification</p>
+                  <form style={{marginTop: "50px"}} className='login-form' onSubmit={handleResetPass}>
+                  <div className='login-input-row'>
+                    <label><span>Password:</span></label>
+                    <InputText type='password' onChange={(e) => setPass(e.target.value)} placeholder='Type your Password'/>
+                  </div>
+                  <div className='login-input-row'>
+                    <label><span>Confirm:</span></label>
+                    <InputText type='password' onChange={(e) => setConfirmPass(e.target.value)} placeholder='Retype your Password'/>
+                  </div>
+                  <Button className="login-button">Verify</Button><br></br>
+                  <Button className="cancel-button" onClick={() => handleCancel()}>Cancel</Button>
+
+                </form>
+              </div>
+            )}
       </div>
       <div className="rightPanel">
         <img  src="https://cdni.iconscout.com/illustration/premium/thumb/male-freelancer-working-on-laptop-4202191-3484369.png" className='login-img' alt='login-img'></img>
       </div>
-    </div>
-    </div>
+    </div></div>
   )
   }

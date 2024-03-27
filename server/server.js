@@ -55,7 +55,10 @@ app.post('/signup', async (req, res) => {
       from: 'mithunm.20cse@kongu.edu',
       to: email,
       subject: 'Welcome to YourApp! Please change your password',
-      text: `Dear ${name},\n\nWelcome to YourApp! Your temporary password is: ${defaultPassword}\n\nPlease login to your account and change your password as soon as possible.\n\nBest regards,\nYourApp Team`,
+      html: `
+      <p>Dear ${name},\n\nWelcome to YourApp! Your temporary password is: ${defaultPassword}\n\nPlease login to your account and change your password as soon as possible.\n</p>
+      <p>Please <a href="http://localhost:5173/changepassword">click here</a> to login to your account and change your password as soon as possible.</p>
+      <p>Best regards,<br>YourApp Team</p>`
     };
 
     // Send email
@@ -63,7 +66,8 @@ app.post('/signup', async (req, res) => {
     const user = new User({
       name: req.body.name,
       email: req.body.email,
-      userType: req.body.userType
+      userType: req.body.userType,
+      password:defaultPassword
     });
     user.save().then(result => {
       res.status(201).json({
@@ -85,8 +89,61 @@ app.post('/signup', async (req, res) => {
 });
 
 
+app.post('/update', async (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
 
+  try {
+    // Find the user by email
+    const foundUser = await User.findOne({ email });
 
+    if (!foundUser) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Verify old password
+    if (oldPassword !== foundUser.password) {
+      return res.status(401).json({ error: 'Invalid old password.' });
+    }
+    
+
+    // Hash the new password
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password hash
+    foundUser.password = newPasswordHash;
+
+    // Save the updated user (replace with your specific save method if necessary)
+    await foundUser.save();
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "mithunm.20cse@kongu.edu",
+        pass: "Mithun123!!",
+      },
+    });
+    // Send response
+    const mailOptions = {
+      from: 'mithunm.20cse@kongu.edu',
+      to: email,
+      subject: 'Password Updated',
+      text: 'Your password has been updated successfully.',
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred during password update.' });
+  }
+});
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -154,4 +211,4 @@ app.post('/login', async (req, res) => {
 
 
 
-app.listen(3000, () => console.log("server running"))
+app.listen(4000, () => console.log("server running"))
