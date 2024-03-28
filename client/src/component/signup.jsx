@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/signup.css'; // Assuming this is your CSS file for styling
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const Signup = ({ isLoggedIn }) => {
   const [name, setName] = useState('');
@@ -32,7 +33,8 @@ export const Signup = ({ isLoggedIn }) => {
       });
 
       if (response.status === 201) {
-        alert('User registered successfully! Please check your email for further instructions.');
+        toast.success("User registered successfully! Please check your email for further instructions")
+       
         // Redirect or perform actions based on successful signup
       }
     } catch (error) {

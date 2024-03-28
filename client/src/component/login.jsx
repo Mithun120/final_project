@@ -1,70 +1,3 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { Button } from 'primereact/button';
-// import { InputText } from 'primereact/inputtext';
-
-// const Login = () => {
-//   const [email, setEmail] = useState('');
-//   const [loading, setLoading] = useState(false);
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-
-//     try {
-//       const response = await axios.post('http://localhost:3000/login', {
-//         email: email,
-//       });
-
-//       if (response.status === 200) {
-//         alert(response.data.message); // Display success message from the backend
-//         // Redirect or perform actions based on the response from the backend
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       alert('An error occurred during login.');
-//     }
-
-//     setLoading(false);
-//   };
-
-//   return (
-//     <div>
-//       <div className='login-bg'>
-//         <div className="leftPanel">
-//           <div className='login-inner'>
-//             <h1>Login</h1>
-//             <p>Login to your account</p>
-//             <form className='login-form' onSubmit={handleLogin}>
-//               <div className='login-input-row'>
-//                 <label> <span>Email:</span></label>
-//                 <InputText
-//                   type='text'
-//                   value={email}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   placeholder='Enter your E-Mail Address'
-//                   style={{ marginLeft: "35px" }}
-//                 />
-//               </div>
-//               <Button
-//                 type='submit'
-//                 className="login-button"
-//                 label='Login'
-//                 disabled={loading}
-//               />
-//             </form>
-//           </div>
-//         </div>
-//         <div className="rightPanel">
-//           <img src="https://cdni.iconscout.com/illustration/premium/thumb/male-freelancer-working-on-laptop-4202191-3484369.png" className='login-img' alt='login-img'></img>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -78,7 +11,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
-
+import { toast } from 'react-toastify';
 
 export const Login = ({ setIsLoggedIn }) => {
 
@@ -150,7 +83,7 @@ export const Login = ({ setIsLoggedIn }) => {
 
     setLoading(false);
   };
-
+  const notify = () => toast.success("Logged In");
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -165,6 +98,7 @@ export const Login = ({ setIsLoggedIn }) => {
       if (response.status === 200 && response.data.userType === "admin") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        notify()
         navigate("/signup")
         // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
@@ -172,6 +106,7 @@ export const Login = ({ setIsLoggedIn }) => {
       else if (response.status === 200 && response.data.userType === "user") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        notify()
         navigate("/signup")
         // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
