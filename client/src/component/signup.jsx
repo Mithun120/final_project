@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/signup.css'; // Assuming this is your CSS file for styling
+import { useNavigate } from 'react-router-dom';
 
-export const Signup = () => {
+export const Signup = ({ isLoggedIn }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('user');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [role, setRole] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +28,7 @@ export const Signup = () => {
         name: name,
         email: email,
         userType: userType,
+        role: role
       });
 
       if (response.status === 201) {
@@ -54,6 +64,10 @@ export const Signup = () => {
                 <option value='user'>User</option>
                 <option value='admin'>Admin</option>
               </select>
+            </div>
+            <div className='login-input-row'>
+              <label><span>Role:</span></label>
+              <input type='text' value={role} onChange={(e) => setRole(e.target.value)} placeholder='Enter Role' />
             </div>
             <div className='login-input-row'>
               <button type='submit' className='login-button' disabled={loading}>Create</button>

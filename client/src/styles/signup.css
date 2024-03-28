@@ -1,5 +1,5 @@
  body {
-    background-color: #ae17e08a;
+    background-color: #eaddee8a;
   } 
   
   .login-bg {
@@ -50,7 +50,7 @@
   
   .login-form {
     margin-top: 10%;
-    line-height: 4;
+    line-height: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;

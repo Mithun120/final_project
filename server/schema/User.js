@@ -10,8 +10,14 @@ const userSchema = new Schema({
     userType:{
         type:String
     },
+    role:{
+        type:String
+    },
     password:{
         type:String
+    },
+    otp:{
+        type:Number
     }
 }, {
     collection: 'users'
