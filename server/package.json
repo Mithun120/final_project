@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "swagger:generate": "swagger-jsdoc -o ./swagger.json ./your_app_file.js",
-  "swagger:serve": "swagger-ui-express serve ./swagger.json --port 4000"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
