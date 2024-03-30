@@ -24,7 +24,8 @@ const App = () => {
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup isLoggedIn={isLoggedIn}/>}  />
         <Route path="/changepassword" element={<ChangePassword/>} />
-        <Route path="/resetpassword" element={    <ResetPassword/>}/>
+        <Route path="/resetpassword" element={<ResetPassword/>}/>
+        
       </Routes>
     </BrowserRouter>
     

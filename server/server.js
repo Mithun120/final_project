@@ -11,7 +11,7 @@ const swaggerui = require("swagger-ui-express")
 const app = express();
 app.use(cors());
 const api = require('./routes/routes')
-
+const projectapi=require("./routes/projects")
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ mongoose
   })
 
 app.use("/",api)
-
+app.use("/projectapi",projectapi)
 // app.post('/signup', async (req, res) => {
 //   try {
 //     // Extract data from the request body
@@ -262,6 +262,7 @@ app.use("/",api)
 //     res.status(500).json({ error: 'Internal server error' });
 //   }
 // });
+
 
 
 

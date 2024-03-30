@@ -40,7 +40,7 @@ export const Signup = ({ isLoggedIn }) => {
   };
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleLogin(e);
+      handleSubmit(e);
     }
   };
   return (

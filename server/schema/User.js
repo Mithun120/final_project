@@ -20,6 +20,6 @@ const userSchema = new Schema({
         type:Number
     }
 }, {
-    collection: 'users'
+    collection: 'users',timestamps: true
 })
 module.exports = mongoose.model('User', userSchema)

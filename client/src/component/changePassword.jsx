@@ -5,14 +5,15 @@ import { Button } from 'primereact/button';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import '../styles/changePassword.css'
-
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const ChangePassword = () => {
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-
+  const navigate=useNavigate()
   const handlePasswordChange = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -25,7 +26,9 @@ const ChangePassword = () => {
       });
   
       if (response && response.data && response.data.message) {
-        alert(response.data.message); // Display success message from the backend
+        toast.success("Your Password has been changed")
+        navigate("/")
+        // alert(response.data.message); // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
       } else {
         console.error('Invalid response format:', response);
@@ -76,7 +79,7 @@ const ChangePassword = () => {
         <Button
           type='submit'
           label='Change Password'
-          className='p-button-raised p-button-success'
+          className=' p-button-success'
           disabled={loading}
         />
       </form>
