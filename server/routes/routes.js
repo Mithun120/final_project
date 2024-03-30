@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
     },
   })
   
+
 router.post('/signup', async (req, res) => {
     try {
       // Extract data from the request body

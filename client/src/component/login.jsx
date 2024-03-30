@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -24,12 +24,19 @@ export const Login = ({ setIsLoggedIn }) => {
   const [selectedForget, setSelectedForget] = useState(false);
   const [selectedOtp, setSelectedOtp] = useState(false);
   const [selectedReset, setSelectedReset] = useState(false);
-  const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   // const auth=useAuth();
+  const userType = localStorage.getItem('userType');
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
   const [loading, setLoading] = useState(false);
 
   const handleOptionChange = (event) => {
@@ -98,6 +105,8 @@ export const Login = ({ setIsLoggedIn }) => {
       if (response.status === 200 && response.data.userType === "admin") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        localStorage.setItem('userType', 'admin');
+      localStorage.setItem('isLoggedIn', true);
         notify()
         navigate("/signup")
         // Display success message from the backend
@@ -106,6 +115,8 @@ export const Login = ({ setIsLoggedIn }) => {
       else if (response.status === 200 && response.data.userType === "user") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        localStorage.setItem('userType', 'user');
+        localStorage.setItem('isLoggedIn', true);
         notify()
         navigate("/signup")
         // Display success message from the backend
@@ -119,26 +130,30 @@ export const Login = ({ setIsLoggedIn }) => {
     setLoading(false);
   };
 
-  const handleGetMail = (e) => {
-    e.preventDefault();
-    if (selectedOption === "") {
-      toast.warn("Select Type of user");
+  // const handleGetMail = (e) => {
+  //   e.preventDefault();
+  //   if (selectedOption === "") {
+  //     toast.warn("Select Type of user");
+  //   }
+  //   else {
+  //     setLoading(true);
+  //     sendMail(email).then((response) => {
+  //       setLoading(false);
+  //       setSelectedOtp(true);
+  //       setSelectedForget(false);
+  //     }).catch((error) => {
+  //       toast.error("Invalid Email");
+  //       setLoading(false);
+  //     })
+  //   }
+  // }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin(e);
     }
-    else {
-      setLoading(true);
-      sendMail(email).then((response) => {
-        setLoading(false);
-        setSelectedOtp(true);
-        setSelectedForget(false);
-      }).catch((error) => {
-        toast.error("Invalid Email");
-        setLoading(false);
-      })
-    }
-  }
-
+  };
   return (
-    <div class='container'>
+    <div className='container'>
       <div className='login-bg'>
         <div className="leftPanel">
           {selectedLogin && (
@@ -150,12 +165,12 @@ export const Login = ({ setIsLoggedIn }) => {
               <div className='login-form'>
                 <div className='login-input-row'>
                   <label> <span>Email:</span></label>
-                  <InputText type='text' onChange={(e) => setEmail(e.target.value)} placeholder='Enter your E-Mail Address' style={{ marginLeft: "35px" }} />
+                  <InputText type='text' onChange={(e) => setEmail(e.target.value)} placeholder='Enter your E-Mail Address' style={{ marginLeft: "35px" }} onKeyDown={handleKeyDown} />
 
                 </div>
                 <div className='login-input-row'>
                   <label><span>Password:</span></label>
-                  <Password style={{ width: "100%" }} feedback={false} onChange={(e) => setPass(e.target.value)} value={pass} placeholder='Enter your Password' toggleMask></Password>
+                  <Password style={{ width: "100%" }} onKeyDown={handleKeyDown} feedback={false} onChange={(e) => setPass(e.target.value)} value={pass} placeholder='Enter your Password' toggleMask></Password>
                 </div>
                 <button onClick={() => handleForgetPassword()} className='forget-pass'>Forgot Password?</button>
                 <Button onClick={handleLogin} className="login-button">Login</Button>

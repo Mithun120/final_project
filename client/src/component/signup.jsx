@@ -11,13 +11,7 @@ export const Signup = ({ isLoggedIn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [role, setRole] = useState('');
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +38,11 @@ export const Signup = ({ isLoggedIn }) => {
 
     setLoading(false);
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin(e);
+    }
+  };
   return (
     <div className='login-bg'>
       <div className='leftPanel'>
@@ -54,22 +52,22 @@ export const Signup = ({ isLoggedIn }) => {
           <form className='login-form' onSubmit={handleSubmit}>
             <div className='login-input-row'>
               <label><span>Name:</span></label>
-              <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Enter your Name' />
+              <input type='text' value={name} onChange={(e) => setName(e.target.value)} onKeyDown={handleKeyDown} placeholder='Enter your Name' />
             </div>
             <div className='login-input-row'>
               <label><span>Email:</span></label>
-              <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Enter your E-Mail Address' />
+              <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={handleKeyDown} placeholder='Enter your E-Mail Address' />
             </div>
             <div className='login-input-row'>
               <label><span>User Type:</span></label>
-              <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+              <select value={userType} onChange={(e) => setUserType(e.target.value)} onKeyDown={handleKeyDown}>
                 <option value='user'>User</option>
                 <option value='admin'>Admin</option>
               </select>
             </div>
             <div className='login-input-row'>
               <label><span>Role:</span></label>
-              <input type='text' value={role} onChange={(e) => setRole(e.target.value)} placeholder='Enter Role' />
+              <input type='text' value={role} onChange={(e) => setRole(e.target.value)} onKeyDown={handleKeyDown} placeholder='Enter Role' />
             </div>
             <div className='login-input-row'>
               <button type='submit' className='login-button' disabled={loading}>Create</button>
