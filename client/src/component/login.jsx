@@ -138,23 +138,7 @@ export const Login = ({ setIsLoggedIn }) => {
     setLoading(false);
   };
 
-  // const handleGetMail = (e) => {
-  //   e.preventDefault();
-  //   if (selectedOption === "") {
-  //     toast.warn("Select Type of user");
-  //   }
-  //   else {
-  //     setLoading(true);
-  //     sendMail(email).then((response) => {
-  //       setLoading(false);
-  //       setSelectedOtp(true);
-  //       setSelectedForget(false);
-  //     }).catch((error) => {
-  //       toast.error("Invalid Email");
-  //       setLoading(false);
-  //     })
-  //   }
-  // }
+  
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleLogin(e);
@@ -226,4 +210,4 @@ export const Login = ({ setIsLoggedIn }) => {
         </div>
       </div></div>
   )
-}
+}   
