@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Logout } from '../component/Logout';
+function ResourceAllocation({ setIsLoggedIn }) {
+  
+  
 
-function userHome() {
   return (
-    <div>userHome</div>
-  )
+    <>
+<Logout  setIsLoggedIn ={ setIsLoggedIn }/>    
+</>
+  );
 }
 
-export default userHome
+export default ResourceAllocation;

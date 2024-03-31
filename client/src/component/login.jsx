@@ -12,6 +12,14 @@ import { Password } from 'primereact/password';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import { toast } from 'react-toastify';
+import { Application } from '@splinetool/runtime';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('canvas3d');
+  const app = new Application(canvas);
+  app.load('https://prod.spline.design/HNI8dc3jMlUsP2WH/scene.splinecode');
+});
+
 
 export const Login = ({ setIsLoggedIn }) => {
 
@@ -108,7 +116,7 @@ export const Login = ({ setIsLoggedIn }) => {
         localStorage.setItem('userType', 'admin');
       localStorage.setItem('isLoggedIn', true);
         notify()
-        navigate("/signup")
+        navigate("/adminhome")
         // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
       }
@@ -118,7 +126,7 @@ export const Login = ({ setIsLoggedIn }) => {
         localStorage.setItem('userType', 'user');
         localStorage.setItem('isLoggedIn', true);
         notify()
-        navigate("/signup")
+        navigate("/userhome")
         // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
       }
