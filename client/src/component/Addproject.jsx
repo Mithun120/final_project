@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import  axios  from 'axios';
 function Addproject() {
   const [formData, setFormData] = useState({
     projectName: '',
@@ -23,23 +23,20 @@ function Addproject() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/projectapi/project', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...formData,
-        })
-      });
-
-      if (!response.ok) {
+      const response = await axios.post('http://localhost:4000/projectapi/project', {
+        ...formData
+      },  {headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+      }});
+  
+      if (!response.status === 200) {
         throw new Error('Failed to add project');
       }
-
-      const data = await response.json();
+  
+      const data = response.data;
       console.log(data); // Log response data
-
+  
       // Reset form data after successful submission
       setFormData({
         projectName: '',
@@ -48,7 +45,7 @@ function Addproject() {
         startDate: '',
         endDate: ''
       });
-      
+  
       navigate('/adminhome'); // Redirect back to admin dashboard after submission
     } catch (error) {
       console.error('Error adding project:', error.message);

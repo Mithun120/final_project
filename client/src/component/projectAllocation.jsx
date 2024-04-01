@@ -19,8 +19,7 @@ const ProjectAllocationForm = () => {
         console.log("hi",sessionStorage.getItem("accessToken"))
       const response = await axios.post('http://localhost:4000/allocate/projectallocation', formData, {headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`,
-        "hello":"hjjjjj"
+        'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
       }});
       console.log(response.data);
       alert('Project allocated successfully');

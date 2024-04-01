@@ -3,8 +3,9 @@ let express = require('express'),
     router = express.Router();
 
 let projectSchema=require("../schema/Project")
+const jswtUtils = require("../auth/auth_utils");
 
-router.post('/project', async (req, res) => {
+router.post('/project',jswtUtils.authenticateJWT, async (req, res) => {
     try {
       const { projectName, projectId, category, startDate, endDate} = req.body;
   

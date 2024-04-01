@@ -9,6 +9,7 @@ export const Logout = ({ setIsLoggedIn }) => {
     // Clear localStorage items
     localStorage.removeItem('userType');
     localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('accessToken');
 
     // Call setIsLoggedIn to update the state
     setIsLoggedIn(false);
