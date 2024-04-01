@@ -26,4 +26,22 @@ router.post('/project',jswtUtils.authenticateJWT, async (req, res) => {
     }
   });
 
+
+
+  router.get('/project', async (req, res) => {
+    try {
+      // Fetch all projects from the database
+      const projects = await projectSchema.find({}, { projectId: 1 });
+  
+      // Extract project IDs from the projects array
+      const projectIds = projects.map((project) => project.projectId);
+  
+      // Send the project IDs as JSON response
+      res.json({ projectIds });
+    } catch (error) {
+      // Handle errors
+      console.error('Error fetching project IDs:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   module.exports=router

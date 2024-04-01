@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Addproject from './component/Addproject';
 import ResourceAllocation from './pages/userHome';
 import Admindashboard from './pages/adminHome';
-import { Feedback } from './component/Feedback';
+import  Feedback  from './component/Feedback';
 import { Logout } from './component/Logout';
 import ProjectAllocationForm from './component/projectAllocation';
 import TimeSheetParent from './component/Timesheet';

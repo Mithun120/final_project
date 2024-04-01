@@ -57,7 +57,7 @@ function TimeSheetParent() {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/api/getTimesheetData', {
+                    const response = await fetch('http://localhost:5000/timesheet/getTimesheetData', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ function TimeSheetParent() {
                         body: JSON.stringify({ startPeriod: range.startPeriod, endPeriod: range.endPeriod }),
                     });
 
-                    const data = await response.json();
+                    const data = await response.json();               
                     console.log(data);
                     setTimesheetdata(data.payload)
                 } catch (error) {
@@ -76,7 +76,7 @@ function TimeSheetParent() {
 
             const fetchUserProject = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/api/getUserProject', {
+                    const response = await fetch('http://localhost:5000/timesheet/getUserProject', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function TimeSheetParent() {
         const handleSubmit = async (e) => {
             console.log(Timesheetdata);
             try {
-                const response = await fetch('http://localhost:5000/api/CreateUpdateTimesheets', {
+                const response = await fetch('http://localhost:5000/timesheet/CreateUpdateTimesheets', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
