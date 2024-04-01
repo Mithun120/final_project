@@ -17,6 +17,32 @@ const transporter = nodemailer.createTransport({
     },
   })
   
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               userType:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       '201':
+ *         description: User registered successfully
+ *       '500':
+ *         description: Internal server error
+ */
 
 router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
     try {
@@ -75,7 +101,36 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
     }
   });
   
-  
+  /**
+ * @swagger
+ * /update:
+ *   post:
+ *     summary: Update user's password
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               oldPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Password updated successfully
+ *       '400':
+ *         description: Invalid old password or bad request
+ *       '401':
+ *         description: Unauthorized - Invalid old password
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Internal server error
+ */
   router.post('/update', async (req, res) => {
     const { email, oldPassword, newPassword } = req.body;
   
@@ -131,6 +186,44 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
       res.status(500).json({ error: 'An error occurred during password update.' });
     }
   });
+
+  /**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login to the application
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 userType:
+ *                   type: string
+ *                 accessToken:
+ *                   type: string
+ *       '401':
+ *         description: Invalid password
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Internal server error
+ */
   router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -167,7 +260,35 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
     }
   });
   
-  
+  /**
+ * @swagger
+ * /forgotPassword:
+ *   post:
+ *     summary: Request OTP for password reset
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: OTP sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Internal server error
+ */
   router.post('/forgotPassword', async (req, res) => {
     try {
       const { email } = req.body;
@@ -206,7 +327,41 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-  
+  /**
+ * @swagger
+ * /resetPassword:
+ *   post:
+ *     summary: Reset user password with OTP
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               otp:
+ *                 type: number
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Password reset successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '400':
+ *         description: Invalid OTP
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Internal server error
+ */
   // Endpoint to handle resetting password with OTP
   router.post('/resetPassword', async (req, res) => {
     try {
