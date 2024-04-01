@@ -30,5 +30,5 @@ function Admindashboard({ setIsLoggedIn }) {
     </div>
   );
 }
-
+  
 export default Admindashboard;

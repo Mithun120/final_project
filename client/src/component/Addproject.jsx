@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import  axios  from 'axios';
+import "../styles/addProjec.css"
+import projectImg from "../styles/project.png"
 function Addproject() {
   const [formData, setFormData] = useState({
     projectName: '',
@@ -53,11 +55,12 @@ function Addproject() {
     }
   };
 
-  return (<>
+  return (<div className="addproject">
+
     <div className="container">
-      <h2>Add Project</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
+      <h2>Add Project</h2>
         <div className="form-group">
           <label htmlFor="projectName">Project Name:</label>
           <input type="text" id="projectName" name="projectName" value={formData.projectName} onChange={handleInputChange} className="form-control" required />
@@ -82,12 +85,12 @@ function Addproject() {
           <label htmlFor="endDate">End Date:</label>
           <input type="date" id="endDate" name="endDate" value={formData.endDate} onChange={handleInputChange} className="form-control" required />
         </div>
-        <button type="submit" className="btn btn-primary">Add Project</button>
+        <button type="submit" className="button-29" style={{marginBottom:"5px"}}>Add Project</button>
       </form>
-    </div>
+    
     <div className="rightPanel">
-    <img src="https://png.pngtree.com/png-vector/20220330/ourmid/pngtree-startup-project-mobile-development-team-rocket-takes-off-for-launching-a-png-image_4520231.png" className='login-img' alt='login-img'></img>
-  </div></>
+    <img src={projectImg} className='login-img' alt='login-img'></img>
+  </div></div></div>
   );
 }
 
