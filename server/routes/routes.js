@@ -2,7 +2,10 @@ let express = require('express'),
     mongoose = require('mongoose'),
     router = express.Router();
 
+const jwt = require('jsonwebtoken');
+const accessTokenSecret = 'youraccesstokensecret';
 let User = require("../schema/User")
+let jswtUtils = require("../auth/auth_utils")
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -15,7 +18,7 @@ const transporter = nodemailer.createTransport({
   })
   
 
-router.post('/signup', async (req, res) => {
+router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
     try {
       // Extract data from the request body
       const { name, email, userType,role } = req.body;
@@ -132,7 +135,8 @@ router.post('/signup', async (req, res) => {
     try {
       const { email, password } = req.body;
       console.log(email,password)
-  
+      
+
       // Check if the user exists with the provided email
       const user = await User.findOne({ email });
       console.log(user)
@@ -148,11 +152,14 @@ router.post('/signup', async (req, res) => {
   
       // Check user type and send appropriate response
       if (user.userType === 'admin') {
-        // If user is admin, send 200 status
-        return res.status(200).json({ message: 'Welcome, admin!', userType: 'admin' });
+        const accessToken = jwt.sign({ email: user.email, role:user.userType }, accessTokenSecret);
+        console.log(accessToken)
+        return res.status(200).json({ message: 'Welcome, admin!', userType: 'admin', accesstoken:accessToken });
       } else {
-        // If user is not admin, redirect to another page
-        return res.status(200).json({ message: 'Redirect to user page', userType: 'user' });
+        
+        const accessToken = jwt.sign({ email: user.email, role: user.userType }, accessTokenSecret);
+        console.log(accessToken)
+        return res.status(200).json({ message: 'Redirect to user page', userType: 'user', accesstoken:accessToken });
       }
     } catch (error) {
       console.error('Error:', error);

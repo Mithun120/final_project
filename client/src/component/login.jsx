@@ -109,10 +109,11 @@ const  Login = ({ setIsLoggedIn }) => {
         password: pass
       });
 
-      console.log(response)
+      console.log(response.data.accesstoken)
       if (response.status === 200 && response.data.userType === "admin") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        sessionStorage.setItem('accessToken', response.data.accesstoken);
         localStorage.setItem('userType', 'admin');
       localStorage.setItem('isLoggedIn', true);
         notify()
@@ -123,6 +124,7 @@ const  Login = ({ setIsLoggedIn }) => {
       else if (response.status === 200 && response.data.userType === "user") {
         // alert(response.data.message);
         setIsLoggedIn(true)
+        sessionStorage.setItem('accessToken', response.data.accesstoken);
         localStorage.setItem('userType', 'user');
         localStorage.setItem('isLoggedIn', true);
         notify()

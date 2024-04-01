@@ -12,6 +12,7 @@ const app = express();
 app.use(cors());
 const api = require('./routes/routes')
 const projectapi=require("./routes/projects")
+const allocateProject=require("./routes/allocateProjects")
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -46,6 +47,7 @@ mongoose
 
 app.use("/",api)
 app.use("/projectapi",projectapi)
+app.use("/allocate",allocateProject)
 // app.post('/signup', async (req, res) => {
 //   try {
 //     // Extract data from the request body
@@ -282,6 +284,8 @@ const options={
   },
   apis :["./routes/*.js"],
 }
+
+
 const spacs = swaggerjsdoc(options)
 app.use("/api-docs",swaggerui.serve,swaggerui.setup(spacs))
 app.listen(4000, () => console.log("server running"))

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const projectSchema = new Schema({
     projectName: String,
-  projectId: { type: String, unique: true }, // Make projectId unique
+  projectId:   String, // Make projectId unique
   category: String,
   startDate: String,
   endDate: String,

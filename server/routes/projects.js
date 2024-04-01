@@ -9,13 +9,13 @@ router.post('/project', async (req, res) => {
       const { projectName, projectId, category, startDate, endDate} = req.body;
   
       // Check if the projectId already exists
-      const existingProject = await projectSchema.findOne({ projectId });
-      if (existingProject) {
-        return res.status(400).json({ error: 'Project ID already exists' });
-      }
+      // const existingProject = await projectSchema.findOne({ projectId });
+      // if (existingProject) {
+      //   return res.status(400).json({ error: 'Project ID already exists' });
+      // }
   
       // Create a new project in projectSchema collection
-      const newProject = new projectSchema({ projectName, projectId, category, startDate, endDate });
+      const newProject = new projectSchema({ projectName:projectName, projectId:projectId, category:category, startDate:startDate, endDate:endDate });
       await newProject.save();
       
       res.status(200).json({ message: 'Project added successfully' });

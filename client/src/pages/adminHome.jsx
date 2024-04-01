@@ -13,9 +13,9 @@ function Admindashboard({ setIsLoggedIn }) {
     navigate('/project'); // Assuming '/addProject' is the route for adding a new project
   };
 
-  // const handleResourceAllocation = () => {
-  //   navigate('/resourceAllocation'); // Assuming '/resourceAllocation' is the route for resource allocation
-  // };
+  const handleAllocateProject = () => {
+    navigate('/projectallocate'); // Assuming '/resourceAllocation' is the route for resource allocation
+  };
  
 
   return (
@@ -23,6 +23,7 @@ function Admindashboard({ setIsLoggedIn }) {
       <h2>Admin Dashboard</h2>
       <button onClick={handleAddUser}>Add User</button>
       <button onClick={handleAddProject}>Add Project</button>
+      <button onClick={handleAllocateProject}>Project Allocation</button>
       {/* <button onClick={handleResourceAllocation}>Resource Allocation</button> */}
       <Logout setIsLoggedIn ={ setIsLoggedIn }/>
 
