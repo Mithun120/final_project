@@ -12,16 +12,16 @@ import { Password } from 'primereact/password';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import { toast } from 'react-toastify';
-import { Application } from '@splinetool/runtime';
+// import { Application } from '@splinetool/runtime';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById('canvas3d');
-  const app = new Application(canvas);
-  app.load('https://prod.spline.design/HNI8dc3jMlUsP2WH/scene.splinecode');
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//   const canvas = document.getElementById('canvas3d');
+//   const app = new Application(canvas);
+//   app.load('https://prod.spline.design/HNI8dc3jMlUsP2WH/scene.splinecode');
+// });
 
 
-export const Login = ({ setIsLoggedIn }) => {
+const  Login = ({ setIsLoggedIn }) => {
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -211,3 +211,4 @@ export const Login = ({ setIsLoggedIn }) => {
       </div></div>
   )
 }   
+export default Login

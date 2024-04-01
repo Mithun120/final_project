@@ -23,7 +23,7 @@ function Addproject() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/add-project', {
+      const response = await fetch('http://localhost:4000/projectapi/project', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ function Addproject() {
         endDate: ''
       });
       
-      navigate('/admin'); // Redirect back to admin dashboard after submission
+      navigate('/adminhome'); // Redirect back to admin dashboard after submission
     } catch (error) {
       console.error('Error adding project:', error.message);
       setErrorMessage(error.message);
