@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from 'primereact/button';
-import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 
 function TimeSheetParent() {
 
@@ -45,15 +44,15 @@ function TimeSheetParent() {
     const weekdaysval = getWeekDates();
     console.log(weekdaysval)
 
-
+    
     function TimeSheet(range) {
-        var [Timesheetdata, setTimesheetdata] = useState({});
-        var [Assignedprojects, SetAssignedprojects] = useState([]);
+        const [Timesheetdata, setTimesheetdata] = useState({});
+        const [Assignedprojects, SetAssignedprojects] = useState([]);
         const [TotalHours, SetTotalHours] = useState(0);
         const firstID = Object.keys(Timesheetdata)[0];
-
+    
         const [ID, setID] = useState(0);
-
+    
         useEffect(() => {
             const fetchData = async () => {
                 try {
@@ -65,44 +64,44 @@ function TimeSheetParent() {
                         },
                         body: JSON.stringify({ startPeriod: range.startPeriod, endPeriod: range.endPeriod }),
                     });
-
-                    const data = await response.json();               
+    
+                    const data = await response.json();
                     console.log(data);
                     setTimesheetdata(data.payload)
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
                 }
             };
-
+    
             const fetchUserProject = async () => {
                 try {
+                    const email = sessionStorage.getItem("email");
                     const response = await fetch('http://localhost:4000/timesheet/getUserProject', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
-                        }
+                            Authorization: `Bearer ${sessionStorage.getItem("email")}`
+                        },
+                        body: JSON.stringify({ email })
                     });
-
+            
                     const data = await response.json();
                     console.log(data);
-                    SetAssignedprojects(data.payload)
+                    SetAssignedprojects(data.payload);
+                    console.log(SetAssignedprojects)
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
                 }
             };
-
+    
             fetchUserProject();
             fetchData();
         }, []);
-
-
-
-
+    
         const handleSubmit = async (e) => {
             console.log(Timesheetdata);
             try {
-                const response = await fetch('http://localhost:5000/timesheet/CreateUpdateTimesheets', {
+                const response = await fetch('http://localhost:4000/timesheet/CreateUpdateTimesheets', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -110,15 +109,15 @@ function TimeSheetParent() {
                     },
                     body: JSON.stringify(Timesheetdata),
                 });
-
+    
                 // const data = await response.json();
-                // console.log(data);
+                // console.log(response);
                 // setTimesheetdata(data.payload)
             } catch (error) {
                 console.error('Error fetching timesheet data:', error);
             }
         }
-
+    
         function TimeSheetLoop(setID) {
             const [seed, setSeed] = useState(0);
             var totalMon = 0;
@@ -128,7 +127,7 @@ function TimeSheetParent() {
             var totalFri = 0;
             var totalSat = 0;
             var totalSun = 0;
-
+    
             for (const key in Timesheetdata) {
                 totalMon += Number(Timesheetdata[key]['mon']);
                 totalTue += Number(Timesheetdata[key]['tue']);
@@ -141,183 +140,64 @@ function TimeSheetParent() {
             let GrandTotal = totalMon + totalTue + totalWed + totalThur + totalFri + totalSat + totalSun;
             SetTotalHours(GrandTotal);
             return (
-                <>{Object.entries(Timesheetdata).map((t, k) => {
-                    if (t[1].visible) {
-                        return (
-                            <Showtimesheet id={t[0]} data={t} seedSetter={setSeed} startPeriod={range.startPeriod} endPeriod={range.endPeriod}></Showtimesheet>
-                        );
-                    } else {
-                        return null; // Render nothing if 'visible' is false
-                    }
-                })}
-
+                <>
+                    {Object.entries(Timesheetdata).map((t, k) => {
+                        if (t[1].visible) {
+                            return (
+                                <Showtimesheet
+                                    id={t[0]}
+                                    data={t}
+                                    seedSetter={setSeed}
+                                    startPeriod={range.startPeriod}
+                                    endPeriod={range.endPeriod}
+                                    key={k}
+                                ></Showtimesheet>
+                            );
+                        } else {
+                            return null; // Render nothing if 'visible' is false
+                        }
+                    })}
+    
                     <tr>
                         <td>Total Hours</td>
                         <td></td>
                         <td></td>
-                        {(() => {
-                            if (totalMon > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalMon}</p></td>
-                                )
-                            }
-                            return <td><p>{totalMon}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalTue > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalTue}</p></td>
-                                )
-                            }
-                            return <td><p>{totalTue}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalWed > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalWed}</p></td>
-                                )
-                            }
-                            return <td><p>{totalWed}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalThur > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalThur}</p></td>
-                                )
-                            }
-                            return <td><p>{totalThur}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalFri > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalFri}</p></td>
-                                )
-                            }
-                            return <td><p>{totalFri}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalSat > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalSat}</p></td>
-                                )
-                            }
-                            return <td><p>{totalSat}</p></td>
-                        })()}
-                        {(() => {
-                            if (totalSun > 8) {
-                                return (
-                                    <td><p style={{ color: 'red' }}>{totalSun}</p></td>
-                                )
-                            }
-                            return <td><p>{totalSun}</p></td>
-                        })()}
+                        {[totalMon, totalTue, totalWed, totalThur, totalFri, totalSat, totalSun].map((total, index) => (
+                            <td key={index}>
+                                <p className={total > 8 ? 'text-danger' : ''}>{total}</p>
+                            </td>
+                        ))}
                         <td>{GrandTotal}</td>
                     </tr>
                 </>
             )
         };
-
+    
         function Showtimesheet({ id, data, seedSetter, startPeriod, endPeriod }) {
-
-            console.log("data->", data)
-
-            const ChangeMon = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-
-                var currVal = e.target.value
-
-                Timesheetdata[currId]['mon'] = currVal;
-                seedSetter(Math.random())
+            const ChangeField = (e, field) => {
+                e.preventDefault();
+                const currId = e.target.id;
+                const currVal = e.target.value;
+                Timesheetdata[currId][field] = currVal;
+                seedSetter(Math.random());
             };
-
-            const ChangeTue = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['tue'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeWed = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['wed'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeThur = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['thur'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeFri = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['fri'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeSat = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['sat'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeSun = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['sun'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeName = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['PID'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeComment = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['comment'] = currVal;
-                seedSetter(Math.random())
-            };
-
-            const ChangeActivity = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
-                var currVal = e.target.value
-                Timesheetdata[currId]['activity'] = currVal;
-                seedSetter(Math.random())
-            };
-
+    
             const CreateNewEntry = (e) => {
+                e.preventDefault();
                 const characters = '0123456789';
                 let randomString = '';
                 for (let i = 0; i < 6; i++) {
                     const randomIndex = Math.floor(Math.random() * characters.length);
                     randomString += characters[randomIndex];
                 }
-
+    
                 const ids = randomString;
                 setID(ids);
-
+    
                 Timesheetdata[ids] = {
                     UID: ids,
                     email: sessionStorage.getItem("email"),
-                    PID: "",
+                    projectId: "",
                     activity: "",
                     comments: "",
                     start_period: startPeriod,
@@ -327,110 +207,126 @@ function TimeSheetParent() {
                     wed: 0,
                     thur: 0,
                     fri: 0,
-                    sat: 0,
+                    sat: 0, 
                     sun: 0,
                     visible: true,
                     created_at: new Date()
                 };
-                seedSetter(Math.random())
-            }
-
+                seedSetter(Math.random());
+            };
+    
             const DeleteEntry = (e) => {
-                e.preventDefault()
-                var currId = e.target.id
+                e.preventDefault();
+                const currId = e.target.id;
                 Timesheetdata[currId].visible = false;
                 seedSetter(Math.random());
-            }
-
-            var total = Number(data[1].mon) + Number(data[1].tue) + Number(data[1].wed) + Number(data[1].thur) + Number(data[1].fri) + Number(data[1].sat) + Number(data[1].sun);
+            };
+    
+            const total = Number(data[1].mon) + Number(data[1].tue) + Number(data[1].wed) + Number(data[1].thur) + Number(data[1].fri) + Number(data[1].sat) + Number(data[1].sun);
             return (
-                <>
-                    <tr>
-                        <td>
-                            <select value={data[1].activity} id={id} onChange={ChangeActivity}>
-                                <option value="">Select Project Type</option>
-                                <option value="client_project">Client Project</option>
-                                <option value="sales_activity">Sales activity</option>
-                                <option value="bau">BAU activity</option>
-                            </select>
+                <tr>
+                    <td>
+                        <select
+                            value={data[1].activity}
+                            id={id}
+                            onChange={(e) => ChangeField(e, 'activity')}
+                            className="form-select"
+                        >
+                            <option value="">Select Project Type</option>
+                            <option value="client_project">Client Project</option>
+                            <option value="sales_activity">Sales activity</option>
+                            <option value="bau">BAU activity</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select
+                            value={data[1].projectId}
+                            id={id}
+                            onChange={(e) => ChangeField(e, 'projectId')}
+                            className="form-select"
+                        >
+                            <option value="">Select Project</option>
+                            {Assignedprojects.map((Assignedproject, index) => (
+                                <option value={Assignedproject.projectId} key={index}>{Assignedproject.name}</option>
+                            ))}
+                        </select>
+                    </td>
+                    <td><textarea value={data[1].comments} id={id} onChange={(e) => ChangeField(e, 'comments')} rows="2" cols="30" className="form-control" /></td>
+                    {['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun'].map((day, index) => (
+                        <td key={index}>
+                            <input
+                                type="text"
+                                value={data[1][day]}
+                                id={id}
+                                onChange={(e) => ChangeField(e, day)}
+                                className="form-control"
+                            />
                         </td>
-                        <td>
-                            <select value={data[1].PID} id={id} onChange={ChangeName}>
-                                <option value="">Select Project</option>
-                                {
-                                    Assignedprojects.map(Assignedproject => (
-                                        <option value={Assignedproject.PID}>{Assignedproject.name}</option>
-                                    ))
-                                }
-                            </select>
-                        </td>
-                        <td><textarea value={data[1].comment} id={id} onChange={ChangeComment} rows="2" cols="30" /></td>
-                        <td><input type="text" value={data[1].mon} id={id} onChange={ChangeMon} /></td>
-                        <td><input type="text" value={data[1].tue} id={id} onChange={ChangeTue} /></td>
-                        <td><input type="text" value={data[1].wed} id={id} onChange={ChangeWed} /></td>
-                        <td><input type="text" value={data[1].thur} id={id} onChange={ChangeThur} /></td>
-                        <td><input type="text" value={data[1].fri} id={id} onChange={ChangeFri} /></td>
-                        <td><input type="text" value={data[1].sat} id={id} onChange={ChangeSat} /></td>
-                        <td><input type="text" value={data[1].sun} id={id} onChange={ChangeSun} /></td>
-                        <td><p>{total}</p></td>
-                        <td><button onClick={CreateNewEntry}>+</button></td>
-                        {(() => {
-                            if (id !== firstID) {
-                                return (
-                                    <td><button id={id} onClick={DeleteEntry}>-</button></td>
-                                )
-                            }
-                            return null;
-                        })()}
-                    </tr>
-
-                </>
-            )
+                    ))}
+                    <td><p>{total}</p></td>
+                    <td><button onClick={CreateNewEntry} className="plusbtn">+</button></td>
+                    {id !== firstID && <td><button id={id} onClick={DeleteEntry} className="minusbtn">-</button></td>}
+                </tr>
+            );
         }
-
+    
         return (
-
             <div className='main'>
-
                 <h3>Total Time: {TotalHours}</h3>
                 <p className='subHeading'>Allocation Extension</p>
                 <p className='subHeading2'>TimeSheet</p>
-                <table>
-                    <tr>
-                        <th>Project Type</th>
-                        <th>Project Name</th>
-                        <th>Task Name</th>
-                        {[...Array(7)].map((_, index) => {
-                            const day = new Date(range.startPeriod);
-                            day.setDate(day.getDate() + index);
-                            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-                            return <th>{day.toLocaleDateString('en-US', options)}</th>;
-                        })}
-                        <th>Total</th>
-                        <th>   </th>
-                        <th>   </th>
-                    </tr>
-                    <TimeSheetLoop setID={setID} />
+                <table className="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Project Type</th>
+                            <th>Project Name</th>
+                            <th>Task Name</th>
+                            {[...Array(7)].map((_, index) => {
+                                const day = new Date(range.startPeriod);
+                                day.setDate(day.getDate() + index);
+                                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                                return <th key={index}>{day.toLocaleDateString('en-US', options)}</th>;
+                            })}
+                            <th>Total</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <TimeSheetLoop setID={setID} />
+                    </tbody>
                 </table>
-                <div >
-                    <Button onClick={handleSubmit} label="Submit" />
+                <div>
+                    <button onClick={handleSubmit} className="btn btn-primary" label="Submit">Submit</button>
                 </div>
             </div>
-        )
-    };
+        );
+    }
+    
+    
 
     return (
-        <div>
+        <div className="container">
             <h1>TimeSheet</h1>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                <button onClick={handlePreviousWeek}>{'<'}</button>
-                <span>{weekdaysval[0]} - {weekdaysval[6]}</span>
-                <button onClick={handleNextWeek}>{'>'}</button>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="date-navigation">
+                        <button onClick={handlePreviousWeek} className="btn btn-primary">&lt;</button>
+                        <span>{weekdaysval[0]} - {weekdaysval[6]}</span>
+                        <button onClick={handleNextWeek} className="btn btn-primary">&gt;</button>
+                    </div>
+                </div>
+                {/* <div className="col-md-6 text-right">
+                    <button onClick={handleSubmit} className="btn btn-primary">Submit</button>
+                </div> */}
             </div>
-            <TimeSheet startPeriod={startDate} endPeriod={endDate} />
+            <div className="row">
+                <div className="col-md-12">
+                    <TimeSheet startPeriod={startDate} endPeriod={endDate} />
+                </div>
+            </div>
         </div>
     );
 }
-
 
 export default TimeSheetParent;

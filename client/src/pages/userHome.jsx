@@ -13,12 +13,11 @@ function ResourceAllocation({ setIsLoggedIn }) {
     <div className="admin-dashboard">
       <div className='admin-heading'>
       <h2 className='dashboard-heading'>User Dashboard</h2>
-      
+      <TimeSheetParent/>
       {/* <button onClick={handleResourceAllocation}>Resource Allocation</button> */}
       <Logout setIsLoggedIn ={ setIsLoggedIn } className='button-62'/>
       </div>
     </div>
-<TimeSheetParent/>  
 </>
   );
 }

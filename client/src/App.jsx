@@ -39,9 +39,9 @@ const App = () => {
         style={{ marginTop: '3rem' }}
         limit={1}
       />
-      {loading ? (
+      {/* {loading ? (
         <Loader />
-      ) : (
+      ) : ( */}
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup isLoggedIn={isLoggedIn}/>}  />
@@ -50,7 +50,7 @@ const App = () => {
         <Route path="/project" element={<Addproject />}/>
         <Route path="/userhome" element={<ResourceAllocation setIsLoggedIn={ setIsLoggedIn }/>}/>
         <Route path="/adminhome" element={<Admindashboard setIsLoggedIn ={ setIsLoggedIn } />}/>
-        {/* <Route path="/timesheet" element={<TimeSheetParent />}/> */}
+        <Route path="/timesheet" element={<TimeSheetParent />}/>
         <Route path="/feedback" element={ <Feedback />}/>
         <Route path="/projectallocate" element={<ProjectAllocationForm/>}/>
         <Route path="/internfeedbackform" element={<InternFeedbackForm/>}/>
@@ -61,7 +61,8 @@ const App = () => {
 
 
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} /> 
-           </Routes>)}
+           </Routes>
+           {/* )} */}
     </BrowserRouter>
     
   )
