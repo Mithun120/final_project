@@ -15,7 +15,7 @@ function ConvertTimesheetFormat(timesheet){
 }
 
 async function RetreiveProjectName(projects) {
-    const formattedProjectNames = [];
+    const formattedProjectNames = []; 
 
     for (let i = 0; i < projects.length; i++) {
         try {

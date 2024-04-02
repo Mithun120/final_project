@@ -1,7 +1,7 @@
 import './App.css'
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Signup } from './component/signup'
 import  Login  from './component/login'
 import ChangePassword from './component/changePassword';
@@ -15,17 +15,33 @@ import  Feedback  from './component/Feedback';
 import { Logout } from './component/Logout';
 import ProjectAllocationForm from './component/projectAllocation';
 import TimeSheetParent from './component/Timesheet';
+import Loader from './component/Loader';
+import InternFeedbackForm from './feedback/internFeedback';
+import GeneralFeedbackForm from './feedback/generalFeedback';
+import ConsultantFeedbackForm from './feedback/consultantFeedback';
+import TribeMasterFeedback from './feedback/tribeFeedback';
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Set loading to false after 2 seconds (you can adjust this value)
+
+    return () => clearTimeout(timer);
+  }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    
     <BrowserRouter>
       <ToastContainer
         position="top-right"
         style={{ marginTop: '3rem' }}
         limit={1}
       />
+      {loading ? (
+        <Loader />
+      ) : (
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup isLoggedIn={isLoggedIn}/>}  />
@@ -34,11 +50,18 @@ const App = () => {
         <Route path="/project" element={<Addproject />}/>
         <Route path="/userhome" element={<ResourceAllocation setIsLoggedIn={ setIsLoggedIn }/>}/>
         <Route path="/adminhome" element={<Admindashboard setIsLoggedIn ={ setIsLoggedIn } />}/>
-        <Route path="/timesheet" element={<TimeSheetParent />}/>
+        {/* <Route path="/timesheet" element={<TimeSheetParent />}/> */}
         <Route path="/feedback" element={ <Feedback />}/>
         <Route path="/projectallocate" element={<ProjectAllocationForm/>}/>
-        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />  
-           </Routes>
+        <Route path="/internfeedbackform" element={<InternFeedbackForm/>}/>
+        <Route path="/generalfeedbackform" element={<GeneralFeedbackForm/>}/>
+        <Route path="/consultantfeedbackform" element={<ConsultantFeedbackForm/>}/>
+        <Route path="/tribemasterfeedbackform" element={<TribeMasterFeedback/>}/>
+
+
+
+        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} /> 
+           </Routes>)}
     </BrowserRouter>
     
   )

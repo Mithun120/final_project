@@ -1,522 +1,228 @@
- body {
-    background-color: #eaddee8a;
-  } 
-  
-  .login-bg {
-    display: flex;
-    height: 100vh;
-  }
-
-  
-  .leftPanel,
-  .rightPanel {
-    flex: 1;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-     
-  }
- .rightPanel{
-  animation: moveForwardBackward 4s ease-in-out infinite;
- }
-  .leftPanel{
-    transition: 1000ms;
-    
-    
-  }
-
-  
-  .leftPanel:hover{
-    transform: scale(1.03);
-  }
-  .login-inner {
-    border-radius: 10px;
-    background: linear-gradient(145deg, white 0%, rgba(255, 255, 255, 0) 100%);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 65%;
-    height:70vh;
-    
-    
-    text-align: center;
-  }
-  
-  .login-inner h1,
-  h2 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 32px;
-    margin-top: 8%;
-  }
-  
-  .login-form {
-    margin-top: 10%;
-    line-height: 0.5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .login-input-row {
-    display: flex;
-    align-items: center;
+.login-bg {
+  display: flex;
+  height: 100vh;
+}
+ 
+.leftPanel,
+.rightPanel {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.inner-login {
+  border-radius: 10px;
+  background: linear-gradient(145deg, white 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 40vw;
+  height:80vh;
+  max-width: 800px;
+  text-align: center;
+}
+ 
+.inner-login h1,
+h2 {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 32px;
+  margin-top: 8%;
+}
+ 
+.login-form {
+  margin-top: 10%;
+  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.login-input-row {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+ 
+.login-input-row .p-password-input{
+  width: 100%;
+}
+ 
+.radio {
+  display: flex;
+  /* flex-direction: row;  */
+  justify-content:safe;
+  align-items:center;
+  margin-top: 4%;
+  font-size: 18px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-bottom: 5%;
+  margin-left: 0;
+ 
+}
+ 
+.radio label {
+  margin: 1% 3%;
+  padding-right: 8%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 900;
+}
+ 
+.p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  border-color: #2ed66c8a;
+}
+ 
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover  {
+  border-color: #2ed66c8a;
+  background: #2ed66c8a;
+}
+ 
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: #2ed66c8a;
+  background: #2ed66c8a;
+}
+ 
+.login-form input {
+  margin: 20px 5px;
+  width: 70%;
+}
+ 
+.login-input-row label {
+  font-size: 18px;
+  font-weight: 900;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 3.5%;
+}
+ 
+.login-input-row input {
+  padding: 8px;
+  border-radius: 5px;
+  border-style: none;
+  border: 1px solid #B2ECEF;
+  background-color: white;
+}
+ 
+.login-button {
+  width: 80%;
+  padding: 10px 135px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(46, 214, 108, 0.699);
+  border-style: none;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+ 
+.login-button:hover {
+  box-shadow: 0px 12px 16px 0px rgba(53, 255, 127, 0.2);
+}
+ 
+.login-img {
+  border-radius: 50%;
+  max-width: 100%;
+}
+ 
+.forget-pass {
+  font-size: small;
+  font-weight: bold;
+  color: rgba(1, 172, 64, 0.836);
+  cursor: pointer;
+  margin-left: 200px;
+  display: inline;
+  margin-top: -3%;
+  margin-bottom: 10px;
+}
+ 
+.forget-pass:hover {
+  text-decoration: underline;
+}
+ 
+.cancel-button {
     width: 80%;
-  }
-  
-  .login-input-row .p-password-input{
-    width: 100%;
-  }
-  
-  .radio {
-    display: flex;
-    /* flex-direction: row;  */
-    justify-content:safe;
-    align-items:center;
-    margin-top: 4%;
-    font-size: 18px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    margin-bottom: 5%;
-    margin-left: 0;
-  
-  }
-  
-  .radio label {
-    margin: 1% 3%;
-    padding-right: 8%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 900;
-  }
-  
-  .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
-    border-color: #2ed66c8a; 
-  }
-  
-  .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover  {
-    border-color: #2ed66c8a;
-    background: #2ed66c8a;
-  }
-  
-  .p-radiobutton .p-radiobutton-box.p-highlight {
-    border-color: #2ed66c8a;
-    background: #2ed66c8a;
-  }
-  
-  .login-form input {
-    margin: 20px 5px;
-    width: 70%;
-  }
-  
-  .login-input-row label {
-    font-size: 18px;
-    font-weight: 900;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-top: 3.5%;
-  }
-  
-  .login-input-row input {
-    padding: 8px;
-    border-radius: 5px;
-    border-style: none;
-    border: 1px solid #B2ECEF;
-    background-color: white;
-  }
-  
-  .login-button {
-    width: 80%;
-    padding: 10px 120px;
+    padding: 10px 135px;
     border-radius: 5px;
     font-size: 18px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
     color: white;
-    background-color: rgba(46, 214, 108, 0.699);
+    background-color: rgb(255, 46, 46, 0.8);
     border-style: none;
     cursor: pointer;
     transition: all 0.5s;
-  }
-  
-  .login-button:hover {
-    box-shadow: 0px 12px 16px 0px rgba(53, 255, 127, 0.2);
-  }
-  
-  .login-img {
-    border-radius: 10px;
-    width: 60%;
-  }
-  
-  .forget-pass {
-    font-size: 14px; /* Adjust font size */
-    font-weight: bold;
-    color: rgba(1, 172, 64, 0.836);
-    cursor: pointer;
-    margin-left: 200px;
-    display: inline-block; /* Use inline-block for better alignment */
-    margin-top: -3%;
-    margin-bottom: 10px;
-    border:none;
-    text-decoration: underline; /* Add underline for better visibility as a link */
-  }
-  
-  /* Hover effect */
-  .forget-pass:hover {
-    color: rgba(1, 172, 64, 1); /* Darker color on hover */
-  }
-  
-  
-  .cancel-button {
-      width: 80%;
-      padding: 10px 135px;
-      border-radius: 5px;
-      font-size: 18px;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-weight: bold;
-      color: white;
-      background-color: rgb(255, 46, 46, 0.8);
-      border-style: none;
-      cursor: pointer;
-      transition: all 0.5s;
-  }
-  
-  .cancel-button:hover {
-    box-shadow: 0px 12px 16px 0px rgb(255, 46, 46, 0.2);
-  }
-  
-  .pi-spinner {
-    margin-right: 5px;
-  }
-  
-  
-  /* Media queries for responsiveness */
-  @media (max-width: 802px) {
-    .login-bg {
-        flex-direction: column;
-    }
-  
-    .login-inner {
-        width: 100%;
-        margin-top: 18%;
-        height:100%;
-    }
-  
-    .login-img {
-        display: none;
-    }
-  
-    .forget-pass {
-      margin-left: 180px;
-    }
-  
-    .login-button {
-      padding-left: 140px;
-      padding-right: 140px;
-    }
-    
-    .cancel-button {
-      padding-left: 120px;
-      padding-right: 120px;
-    }
-  }
-  
-  @media (max-width : 920px) {
-    .login-button {
-      padding-left: 120px;
-      padding-right: 120px;
-    }
-  
-    .cancel-button {
-      padding-left: 110px;
-      padding-right: 110px;
-    }
-  
-    .forget-pass {
-      margin-left: 180px;
-    }
-    
-  }
-  
-  @media (max-width : 423px) {
-    .login-button {
-      padding-left: 110px;
-      padding-right: 110px;
-    }
-  
-    .cancel-button {
-      padding-left: 100px;
-      padding-right: 100px;
-    }
-  
-    .forget-pass {
-      margin-left: 150px;
-    }
-    
-  }
-  @keyframes moveForwardBackward {
-    0%, 100% {
-      transform: translateZ(0);
-    }
-    50% {
-      transform: translateZ(-100px);
-    }
-  }
-
-
-
-
-  body {
-    background-color: #eaddee8a;
-  } 
-  
+}
+ 
+.cancel-button:hover {
+  box-shadow: 0px 12px 16px 0px rgb(255, 46, 46, 0.2);
+}
+ 
+.pi-spinner {
+  margin-right: 5px;
+}
+ 
+ 
+/* Media queries for responsiveness */
+@media (max-width: 802px) {
   .login-bg {
-    display: flex;
-    height: 100vh;
+      flex-direction: column;
   }
-  
-  
-  .leftPanel,
-  .rightPanel {
-    flex: 1;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-     
+ 
+  .inner-login {
+      width: 100%;
+      margin-top: 18%;
+      height:100%;
   }
-  .rightPanel{
-  animation: moveForwardBackward 4s ease-in-out infinite;
-  }
-  .leftPanel{
-    transition: 1000ms;
-    
-    
-  }
-  
-  
-  .leftPanel:hover{
-    transform: scale(1.03);
-  }
-  .login-inner {
-    border-radius: 10px;
-    background: linear-gradient(145deg, white 0%, rgba(255, 255, 255, 0) 100%);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 65%;
-    height:65vh;
-    
-    
-    text-align: center;
-  }
-  
-  .login-inner h1,
-  h2 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 32px;
-    margin-top: 8%;
-  }
-  
-  .login-form {
-    margin-top: 10%;
-    line-height: 0.5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .login-input-row {
-    display: flex;
-    align-items: center;
-    width: 80%;
-  }
-  
-  .login-input-row .p-password-input{
-    width: 100%;
-  }
-  
-  .radio {
-    display: flex;
-    /* flex-direction: row;  */
-    justify-content:safe;
-    align-items:center;
-    margin-top: 4%;
-    font-size: 18px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    margin-bottom: 5%;
-    margin-left: 0;
-  
-  }
-  
-  .radio label {
-    margin: 1% 3%;
-    padding-right: 8%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 900;
-  }
-  
-  .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
-    border-color: #2ed66c8a; 
-  }
-  
-  .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover  {
-    border-color: #2ed66c8a;
-    background: #2ed66c8a;
-  }
-  
-  .p-radiobutton .p-radiobutton-box.p-highlight {
-    border-color: #2ed66c8a;
-    background: #2ed66c8a;
-  }
-  
-  .login-form input {
-    margin: 20px 5px;
-    width: 70%;
-  }
-  
-  .login-input-row label {
-    font-size: 18px;
-    font-weight: 900;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-top: 3.5%;
-  }
-  
-  .login-input-row input {
-    padding: 8px;
-    border-radius: 5px;
-    border-style: none;
-    border: 1px solid #B2ECEF;
-    background-color: white;
-  }
-  
-  .login-button {
-    width: 30%;
-    padding: 10px 50px;
-    border-radius: 5px;
-    font-size: 18px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold;
-    color: white;
-    background-color: rgba(46, 214, 108, 0.699);
-    border-style: none;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  
-  .login-button:hover {
-    box-shadow: 0px 12px 16px 0px rgba(53, 255, 127, 0.2);
-  }
-  
+ 
   .login-img {
-    border-radius: 10px;
-    width: 60%;
+      display: none;
   }
-  
+ 
   .forget-pass {
-    font-size: 14px; /* Adjust font size */
-    font-weight: bold;
-    color: rgba(1, 172, 64, 0.836);
-    cursor: pointer;
-    margin-left: 200px;
-    display: inline-block; /* Use inline-block for better alignment */
-    margin-top: -3%;
-    margin-bottom: 10px;
-    border:none;
-    text-decoration: underline; /* Add underline for better visibility as a link */
+    margin-left: 180px;
   }
-  
-  /* Hover effect */
-  .forget-pass:hover {
-    color: rgba(1, 172, 64, 1); /* Darker color on hover */
+ 
+  .login-button {
+    padding-left: 140px;
+    padding-right: 140px;
   }
-  
   
   .cancel-button {
-      width: 80%;
-      padding: 10px 135px;
-      border-radius: 5px;
-      font-size: 18px;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-weight: bold;
-      color: white;
-      background-color: rgb(255, 46, 46, 0.8);
-      border-style: none;
-      cursor: pointer;
-      transition: all 0.5s;
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+ 
+@media (max-width : 920px) {
+  .login-button {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+ 
+  .cancel-button {
+    padding-left: 110px;
+    padding-right: 110px;
+  }
+ 
+  .forget-pass {
+    margin-left: 180px;
   }
   
-  .cancel-button:hover {
-    box-shadow: 0px 12px 16px 0px rgb(255, 46, 46, 0.2);
+}
+ 
+@media (max-width : 423px) {
+  .login-button {
+    padding-left: 110px;
+    padding-right: 110px;
+  }
+ 
+  .cancel-button {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+ 
+  .forget-pass {
+    margin-left: 150px;
   }
   
-  .pi-spinner {
-    margin-right: 5px;
-  }
-  
-  
-  /* Media queries for responsiveness */
-  @media (max-width: 802px) {
-    .login-bg {
-        flex-direction: column;
-    }
-  
-    .login-inner {
-        width: 100%;
-        margin-top: 18%;
-        height:100%;
-    }
-  
-    .login-img {
-        display: none;
-    }
-  
-    .forget-pass {
-      margin-left: 180px;
-    }
-  
-    .login-button {
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-    
-    .cancel-button {
-      padding-left: 120px;
-      padding-right: 120px;
-    }
-  }
-  
-  @media (max-width : 920px) {
-    .login-button {
-      padding-left: 30%;
-      padding-right: 30%;
-    }
-  
-    .cancel-button {
-      padding-left: 110px;
-      padding-right: 110px;
-    }
-  
-    .forget-pass {
-      margin-left: 180px;
-    }
-    
-  }
-  
-  @media (max-width : 423px) {
-    .login-button {
-      padding-left: 25%;
-      padding-right: 25%;
-    }
-  
-    .cancel-button {
-      padding-left: 100px;
-      padding-right: 100px;
-    }
-  
-    .forget-pass {
-      margin-left: 150px;
-    }
-    
-  }
-  @keyframes moveForwardBackward {
-    0%, 100% {
-      transform: translateZ(0);
-    }
-    50% {
-      transform: translateZ(-100px);
-    }
-  }
+}

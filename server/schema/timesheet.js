@@ -10,7 +10,7 @@ const timesheetSchema = new Schema({
       type: String,
       required: true
     },
-    PID: {
+    projectId: {
       type: String
     },
     activity: {

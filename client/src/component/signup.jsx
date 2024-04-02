@@ -46,7 +46,7 @@ export const Signup = ({ isLoggedIn }) => {
   return (
     <div className='login-bg'>
       <div className='leftPanel'>
-        <div className='login-inner'>
+        <div className='inner-login'>
           <h1>Create account</h1>
           <p>Create New User</p>
           <form className='login-form' onSubmit={handleSubmit}>
@@ -73,7 +73,7 @@ export const Signup = ({ isLoggedIn }) => {
               <button type='submit' className='login-button' disabled={loading}>Create</button>
             </div>
           </form>
-          {error && <p className='error-msg'>{error}</p>}
+          {/* {error && <p className='error-msg'>{error}</p>} */}
         </div>
       </div>
       <div className='rightPanel'>

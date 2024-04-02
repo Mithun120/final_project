@@ -1,82 +1,66 @@
-import React, { useState } from 'react';
-import '../styles/feedback.css';
-const resources = {
-  emojis: [
-    {
-      id: 0,
-      name: 'Sad',
-      imageUrl: 'https://assets.ccbp.in/frontend/react-js/sad-emoji-img.png',
-    },
-    {
-      id: 1,
-      name: 'None',
-      imageUrl: 'https://assets.ccbp.in/frontend/react-js/none-emoji-img.png',
-    },
-    {
-      id: 2,
-      name: 'Happy',
-      imageUrl: 'https://assets.ccbp.in/frontend/react-js/happy-emoji-img.png',
-    },
-  ],
-  loveEmojiUrl: 'https://assets.ccbp.in/frontend/react-js/love-emoji-img.png',
-}
-
-const Feedback = () => {
-  const [isFeedBack, setIsFeedback] = useState(true);
-
-  const onChangeResponse = () => {
-    setIsFeedback(false);
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+// import './Feedback.css';
+ 
+function Feedback() {
+  const navigate = useNavigate();
+  const [userRole, setUserRole] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userFirstName, setUserFirstName] = useState('');
+ 
+  useEffect(() => {
+    // Fetch user email from session storage
+    const responseEmail = sessionStorage.getItem('responseEmail');
+   
+    // If email is present, send request to backend to fetch user details
+    if (responseEmail) {
+      fetchUserData(responseEmail);
+    }
+  }, []);
+ 
+  const fetchUserData = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/api/users/userdetails/${email}`);
+      const userData = response.data;
+      setUserRole(userData.role);
+      setUserId(userData.id);
+      setUserFirstName(userData.firstName);
+ 
+      // Based on the user's role, navigate to respective pages
+      navigateToRole(userData.role);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
-
-  const originPage = () => {
-    const { emojis } = resources;
-    return (
-      <div className="emojis-container">
-        <h1>
-          How satisfied are you with our
-          <br />
-          customer support performance
-        </h1>
-        <ul className="emoji-container">
-          {emojis.map((emoji) => (
-            <li key={emoji.id} className="list-container">
-              <button
-                type="button"
-                onClick={onChangeResponse}
-                className="button"
-              >
-                <img src={emoji.imageUrl} alt={emoji.name} className="img" />
-                <p>{emoji.name}</p>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+ 
+  const navigateToRole = (role) => {
+    switch (role) {
+      case 'Intern':
+        navigate('/internfeedbackform', { state: { userId } });
+        break;
+      case 'Software Engineer':
+        navigate('/generalfeedbackform', { state: { userId } });
+        break;
+      case 'Consultant':
+        navigate('/consultantfeedbackform', { state: { userId } });
+        break;
+      case 'Tribe Master':
+        navigate('/tribemasterfeedbackform', { state: { userId } });
+        break;
+      default:
+        console.error('Invalid role:', role);
+    }
   };
-
-  const feedBackPage = () => {
-    const { loveEmojiUrl } = resources;
-    return (
-      <div className="tq-container">
-        <img src={loveEmojiUrl} alt="love emoji" />
-        <h1>Thank You</h1>
-        <p>
-          we will use your feedback to improve our customer support
-          <br />
-          performance.
-        </p>
-      </div>
-    );
-  };
-
+ 
   return (
-    <div className="bg-container">
-      <div className="sub-container">
-        {isFeedBack ? originPage() : feedBackPage()}
+    <div className="feedback-box">
+      <div className="feedback-dashboard-container">
+        <h2 className="feedback-heading">Role of the User: {userRole}</h2>
+        <p>Welcome, {userFirstName}!</p>
       </div>
     </div>
   );
-};
-
+}
+ 
 export default Feedback;

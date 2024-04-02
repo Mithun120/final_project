@@ -3,7 +3,7 @@ import { useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
-import "../styles/signup.css"
+import "../styles/login.css"
 import 'react-toastify/dist/ReactToastify.css';
 import { RadioButton } from 'primereact/radiobutton';
 import { Button } from 'primereact/button';
@@ -99,6 +99,10 @@ const  Login = ({ setIsLoggedIn }) => {
     setLoading(false);
   };
   const notify = () => toast.success("Logged In");
+  const handleCancel=()=>{
+    setSelectedLogin(true)
+    setSelectedOtp(false)
+  }
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -114,6 +118,7 @@ const  Login = ({ setIsLoggedIn }) => {
         // alert(response.data.message);
         setIsLoggedIn(true)
         sessionStorage.setItem('accessToken', response.data.accesstoken);
+        sessionStorage.setItem('email',response.data.email)
         localStorage.setItem('userType', 'admin');
       localStorage.setItem('isLoggedIn', true);
         notify()
@@ -125,6 +130,7 @@ const  Login = ({ setIsLoggedIn }) => {
         // alert(response.data.message);
         setIsLoggedIn(true)
         sessionStorage.setItem('accessToken', response.data.accesstoken);
+        sessionStorage.setItem('email',response.data.email)
         localStorage.setItem('userType', 'user');
         localStorage.setItem('isLoggedIn', true);
         notify()
@@ -150,7 +156,7 @@ const  Login = ({ setIsLoggedIn }) => {
     <div className='container'>
       <div className='login-bg'>
         <div className="leftPanel">
-          {selectedLogin && (
+          {selectedLogin && !selectedOtp && (
             <div className='login-inner'>
               <h1>
                 Login
@@ -171,6 +177,26 @@ const  Login = ({ setIsLoggedIn }) => {
               </div>
             </div>
           )}
+          {selectedOtp && (
+           
+           <div className='login-inner'>
+             <h2>OTP Verification</h2>
+             
+             <div style={{ marginTop: "50px" }} className='login-form'>
+               <div className='login-input-row' style={{ marginBottom: "30px" }}>
+                 <label> <span>OTP:</span></label>
+                 <InputText type='text' onChange={(e) => setOtp(e.target.value)} placeholder='Enter your OTP' style={{ marginLeft: "35px" }} />
+               </div>
+               <div className='login-input-row' style={{ marginBottom: "30px" }}>
+                 <label> <span>New Password:</span></label>
+                 <InputText type='text' onChange={(e) => setNewPassword(e.target.value)} placeholder='Enter New Password' style={{ marginLeft: "35px" }} />
+               </div>
+               <Button className="login-button" onClick={handleResetPassword}>Verify</Button><br></br>
+               <Button className="login-button" style={{backgroundColor:"red"}} onClick={() => handleCancel()}>Cancel</Button>
+
+             </div>
+           </div>
+         )}
           {/* {selectedForget && (
                <div className='login-inner'>
                <p>Forget Password</p>
@@ -188,24 +214,7 @@ const  Login = ({ setIsLoggedIn }) => {
              </form>
            </div>
             )} */}
-          {selectedOtp && (
-            <div className='login-inner'>
-              <p>OTP Verification</p>
-              <form style={{ marginTop: "50px" }} className='login-form' onSubmit={handleResetPassword}>
-                <div className='login-input-row' style={{ marginBottom: "30px" }}>
-                  <label> <span>OTP:</span></label>
-                  <InputText type='text' onChange={(e) => setOtp(e.target.value)} placeholder='Enter your OTP' style={{ marginLeft: "35px" }} />
-                </div>
-                <div className='login-input-row' style={{ marginBottom: "30px" }}>
-                  <label> <span>New Password:</span></label>
-                  <InputText type='text' onChange={(e) => setNewPassword(e.target.value)} placeholder='Enter New Password' style={{ marginLeft: "35px" }} />
-                </div>
-                <Button className="login-button">Verify</Button><br></br>
-                <Button className="cancel-button" onClick={() => handleCancel()}>Cancel</Button>
-
-              </form>
-            </div>
-          )}
+          
         </div>
         <div className="rightPanel">
           <img src="https://cdni.iconscout.com/illustration/premium/thumb/male-freelancer-working-on-laptop-4202191-3484369.png" className='login-img' alt='login-img'></img>

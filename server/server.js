@@ -14,6 +14,7 @@ const api = require('./routes/routes')
 const projectapi=require("./routes/projects")
 const allocateProject=require("./routes/allocateProjects")
 const timesheet=require("./routes/timesheet")
+const feedback=require("./routes/feedback")
 dotenv.config();
 
 app.use(bodyParser.json());
@@ -49,7 +50,10 @@ mongoose
 app.use("/",api)
 app.use("/projectapi",projectapi)
 app.use("/allocate",allocateProject)
-app.use("/timesheet",timesheet)
+app.use("/feedback",feedback)
+// app.use("/timesheet",timesheet)
+
+
 // app.post('/signup', async (req, res) => {
 //   try {
 //     // Extract data from the request body

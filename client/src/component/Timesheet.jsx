@@ -57,7 +57,7 @@ function TimeSheetParent() {
         useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/timesheet/getTimesheetData', {
+                    const response = await fetch('http://localhost:4000/timesheet/getTimesheetData', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function TimeSheetParent() {
 
             const fetchUserProject = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/timesheet/getUserProject', {
+                    const response = await fetch('http://localhost:4000/timesheet/getUserProject', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',

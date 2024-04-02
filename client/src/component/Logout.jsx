@@ -20,7 +20,7 @@ export const Logout = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <button onClick={handleLogout} className="button-62">Logout</button>
   );
 };
 
