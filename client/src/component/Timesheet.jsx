@@ -110,6 +110,14 @@ function TimeSheetParent() {
                     },
                     body: JSON.stringify(Timesheetdata),
                 });
+
+                const [id] = Object.keys(Timesheetdata);
+                const start_period = Timesheetdata[id].start_period;
+                const end_period = Timesheetdata[id].end_period;
+                const projectId = Timesheetdata[id].projectId;
+                sessionStorage.setItem("start_period",start_period)
+                sessionStorage.setItem("end_period",end_period)
+                sessionStorage.setItem("projectId_timesheet",projectId)
                 navigate("/feedback")
                 // const data = await response.json();
                 // console.log(response);

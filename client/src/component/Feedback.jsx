@@ -11,13 +11,10 @@ function Feedback() {
     const location = useLocation();
 
     const navigate = useNavigate();
-    // const searchParams = new URLSearchParams(location.search);
-    // const projectId = searchParams.get('projectId');
-    // const start_period = searchParams.get('start');
-    // const end_period = searchParams.get('end');
-    // const decodedprojectId = decodeURIComponent(projectId);
-    // const decodedStart = decodeURIComponent(start_period);
-    // const decodedEnd = decodeURIComponent(end_period);
+    const projectId = sessionStorage.getItem('start_period');
+    const start_period = sessionStorage.getItem('end_period');
+    const end_period = sessionStorage.getItem('projectId_timesheet');
+
 
     useEffect(() => {
         if (!accessToken) {
