@@ -131,6 +131,7 @@ const  Login = ({ setIsLoggedIn }) => {
         setIsLoggedIn(true)
         sessionStorage.setItem('accessToken', response.data.accesstoken);
         sessionStorage.setItem('email',response.data.email)
+        sessionStorage.setItem('role',response.data.role)
         localStorage.setItem('userType', 'user');
         localStorage.setItem('isLoggedIn', true);
         notify()

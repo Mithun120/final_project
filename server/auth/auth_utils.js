@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const accessTokenSecret = 'youraccesstokensecret';
 
 const authenticateJWT = (req, res, next) => {
+  console.log("req")
+
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
@@ -10,7 +12,7 @@ const authenticateJWT = (req, res, next) => {
         res.status(401).send('Invalid token');
       } else {
         req.user = decoded;
-        console.log("req") // Attach decoded user data to the request
+        console.log(req.user)
         next();
       }
     });

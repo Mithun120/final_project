@@ -250,9 +250,9 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
         return res.status(200).json({ message: 'Welcome, admin!', userType: 'admin', email:user.email,accesstoken:accessToken });
       } else {
         
-        const accessToken = jwt.sign({ email: user.email, role: user.userType }, accessTokenSecret);
-        console.log(accessToken)
-        return res.status(200).json({ message: 'Redirect to user page', userType: 'user',email:user.email, accesstoken:accessToken });
+        const accessToken = jwt.sign({ email: user.email, role: user.role }, accessTokenSecret);
+        console.log(user.role)
+        return res.status(200).json({ message: 'Redirect to user page', userType: 'user',email:user.email,role:user.role, accesstoken:accessToken });
       }
     } catch (error) {
       console.error('Error:', error);

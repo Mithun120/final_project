@@ -16,10 +16,7 @@ import { Logout } from './component/Logout';
 import ProjectAllocationForm from './component/projectAllocation';
 import TimeSheetParent from './component/Timesheet';
 import Loader from './component/Loader';
-import InternFeedbackForm from './feedback/internFeedback';
-import GeneralFeedbackForm from './feedback/generalFeedback';
-import ConsultantFeedbackForm from './feedback/consultantFeedback';
-import TribeMasterFeedback from './feedback/tribeFeedback';
+
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -53,10 +50,7 @@ const App = () => {
         <Route path="/timesheet" element={<TimeSheetParent />}/>
         <Route path="/feedback" element={ <Feedback />}/>
         <Route path="/projectallocate" element={<ProjectAllocationForm/>}/>
-        <Route path="/internfeedbackform" element={<InternFeedbackForm/>}/>
-        <Route path="/generalfeedbackform" element={<GeneralFeedbackForm/>}/>
-        <Route path="/consultantfeedbackform" element={<ConsultantFeedbackForm/>}/>
-        <Route path="/tribemasterfeedbackform" element={<TribeMasterFeedback/>}/>
+        
 
 
 
