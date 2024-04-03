@@ -7,6 +7,7 @@ const {ConvertTimesheetFormat,RetreiveProjectName} = require('../auth/timesheet_
 const RertreiveTimesheetPerWeek = async (req,res) => {
     try {
 
+        console.log("42")
 
         const user = req.user.email;
         const { startPeriod , endPeriod } = req.body;
@@ -42,7 +43,7 @@ const RertreiveTimesheetPerWeek = async (req,res) => {
             
             try {
                 const result = await newTimeSheet.save();
-                console.log(result); 
+                // console.log(result); 
                 res.json({ message: "Timesheet data sent", payload: ConvertTimesheetFormat([result]) });
             } catch (error) {
                 console.error(error);
@@ -57,18 +58,20 @@ const RertreiveTimesheetPerWeek = async (req,res) => {
 
 
 const RetreiveUserProject = async (req,res) => {
-    try {
-        console.log(req.body.email)
+
+    try {    console.log("43")
+
+        console.log("req.user.email")
         const userproject = await projectAllocationSchema.find({
             email:req.user.email
         });
 
     console.log("display user project",userproject)
-    const projectIds = userproject.map(project => project.projectId);
-    console.log(projectIds)
+    // const projectIds = userproject.map(project => project.projectId);
+    // console.log(projectIds)
         if(userproject.length !== 0) {
             
-            res.json({ message: "Project sent", payload:  projectIds});
+            res.json({ message: "Project sent", payload: await RetreiveProjectName(userproject)});
         }
         else{
             res.json({ message: "Project sent", payload: [{projectId:"0",name:"bench"}]});
@@ -82,6 +85,7 @@ const RetreiveUserProject = async (req,res) => {
 
 const CreateUpdateTimesheets = async (req, res) => {
     try {
+        console.log("44")
         const data = req.body;
 
         for (const [key, value] of Object.entries(data)) {
@@ -105,7 +109,6 @@ const CreateUpdateTimesheets = async (req, res) => {
             } else {
                 // If the timesheet entry doesn't exist, create a new one
                 const newTimesheet = new timesheetModel(value);
-                console.log(newTimesheet)
                 await newTimesheet.save();
                 console.log(`New timesheet entry created for UID ${value.UID}`);
             }

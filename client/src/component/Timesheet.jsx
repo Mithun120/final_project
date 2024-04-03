@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from 'react-router-dom';
 
 function TimeSheetParent() {
 
@@ -42,7 +42,7 @@ function TimeSheetParent() {
     };
 
     const weekdaysval = getWeekDates();
-    console.log(weekdaysval)
+    // console.log(weekdaysval)
 
     
     function TimeSheet(range) {
@@ -50,7 +50,8 @@ function TimeSheetParent() {
         const [Assignedprojects, SetAssignedprojects] = useState([]);
         const [TotalHours, SetTotalHours] = useState(0);
         const firstID = Object.keys(Timesheetdata)[0];
-    
+        const navigate = useNavigate();
+
         const [ID, setID] = useState(0);
     
         useEffect(() => {
@@ -66,7 +67,7 @@ function TimeSheetParent() {
                     });
     
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     setTimesheetdata(data.payload)
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
@@ -75,20 +76,20 @@ function TimeSheetParent() {
     
             const fetchUserProject = async () => {
                 try {
-                    const email = sessionStorage.getItem("email");
+                    // const email = sessionStorage.getItem("email");
+                    // console.log(email)
                     const response = await fetch('http://localhost:4000/timesheet/getUserProject', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${sessionStorage.getItem("email")}`
-                        },
-                        body: JSON.stringify({ email })
+                            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+                        }
                     });
             
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     SetAssignedprojects(data.payload);
-                    console.log(SetAssignedprojects)
+                    // console.log(SetAssignedprojects)
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
                 }
@@ -109,7 +110,7 @@ function TimeSheetParent() {
                     },
                     body: JSON.stringify(Timesheetdata),
                 });
-    
+                navigate("/feedback")
                 // const data = await response.json();
                 // console.log(response);
                 // setTimesheetdata(data.payload)
@@ -247,7 +248,7 @@ function TimeSheetParent() {
                         >
                             <option value="">Select Project</option>
                             {Assignedprojects.map((Assignedproject, index) => (
-                                <option value={Assignedproject.projectId} key={index}>{Assignedproject.name}</option>
+                                <option value={Assignedproject.projectId} key={index}>{Assignedproject.projectId    }</option>
                             ))}
                         </select>
                     </td>

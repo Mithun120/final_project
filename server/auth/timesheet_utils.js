@@ -4,6 +4,9 @@ const { UserModel,
     projectSchema,
     feedbackModel } = require('../schema/Project');
 
+
+const projectSchemaNew = require('../schema/Project')
+
 function ConvertTimesheetFormat(timesheet){
     formatted_timesheet = {};
     let i = 0;
@@ -15,14 +18,23 @@ function ConvertTimesheetFormat(timesheet){
 }
 
 async function RetreiveProjectName(projects) {
+    console.log("hi")
     const formattedProjectNames = []; 
 
+    console.log(projects)
+
+    console.log(projectSchema)
+    // return [];
     for (let i = 0; i < projects.length; i++) {
         try {
             const projectId =  projects[i].projectId;
-            const project = await projectSchema.findOne({ projectId: projectId });
+            console.log("rpojectI", projectId)
+
+            if(typeof projectId === 'undefined') continue;
+
+            const project = await projectSchemaNew.findOne({ projectId: projectId });
             if (project) {
-                formattedProjectNames.push({projectId:projectId,name:project.name});
+                formattedProjectNames.push({projectId:projectId});
             } else {
                 // Handle case where project with given projectId is not found
                 formattedProjectNames.push({projectId:"not found"});
@@ -34,7 +46,7 @@ async function RetreiveProjectName(projects) {
         }
     }
 
-    console.log(formattedProjectNames);
+    console.log("array",formattedProjectNames);
     return formattedProjectNames;
 }
 

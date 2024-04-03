@@ -11,8 +11,8 @@ function Feedback() {
  
   useEffect(() => {
     // Fetch user email from session storage
-    const responseEmail = sessionStorage.getItem('responseEmail');
-   
+    const responseEmail = sessionStorage.getItem('email');
+   console.log(responseEmail)
     // If email is present, send request to backend to fetch user details
     if (responseEmail) {
       fetchUserData(responseEmail);
