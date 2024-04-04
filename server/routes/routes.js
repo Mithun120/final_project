@@ -5,7 +5,8 @@ let express = require('express'),
 const jwt = require('jsonwebtoken');
 const accessTokenSecret = 'youraccesstokensecret';
 let User = require("../schema/User")
-let jswtUtils = require("../auth/auth_utils")
+let jswtUtils = require("../auth/auth_utils");
+const { default: ChangePassword } = require('../../client/src/component/changePassword');
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -233,7 +234,9 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
       // Check if the user exists with the provided email
       const user = await User.findOne({ email });
       console.log(user)
-  
+      // if(user.changedPassword==false){
+
+      // }
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }

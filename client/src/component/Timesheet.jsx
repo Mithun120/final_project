@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+// import { Logout } from './Logout';
 
 function TimeSheetParent() {
 
@@ -178,13 +179,14 @@ function TimeSheetParent() {
             var totalSun = 0;
     
             for (const key in Timesheetdata) {
+                if (Timesheetdata[key]['visible']) {
                 totalMon += Number(Timesheetdata[key]['mon']);
                 totalTue += Number(Timesheetdata[key]['tue']);
                 totalWed += Number(Timesheetdata[key]['wed']);
                 totalThur += Number(Timesheetdata[key]['thur']);
                 totalFri += Number(Timesheetdata[key]['fri']);
                 totalSat += Number(Timesheetdata[key]['sat']);
-                totalSun += Number(Timesheetdata[key]['sun']);
+                    totalSun += Number(Timesheetdata[key]['sun']);}
             };
             let GrandTotal = totalMon + totalTue + totalWed + totalThur + totalFri + totalSat + totalSun;
             SetTotalHours(GrandTotal);
@@ -265,6 +267,7 @@ function TimeSheetParent() {
             };
     
             const DeleteEntry = (e) => {
+                
                 e.preventDefault();
                 const currId = e.target.id;
                 Timesheetdata[currId].visible = false;
@@ -348,6 +351,8 @@ function TimeSheetParent() {
                 <div>
                      <button onClick={handleSave} className="btn btn-primary" label="Submit">Save</button>
                     <button onClick={handleSubmit} className="btn btn-primary" label="Submit">Submit</button>
+                    {/* <Logout setIsLoggedIn ={ setIsLoggedIn } className='button-62'/> */}
+
                 </div>
             </div>
         );

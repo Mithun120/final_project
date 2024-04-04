@@ -17,6 +17,11 @@ const userSchema = new Schema({
     password:{
         type:String
     },
+    changedPassword:{
+        type:Boolean,
+        default:false
+
+    ,
     otp:{
         type:Number
     }

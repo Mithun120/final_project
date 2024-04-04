@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Questions from '../data/feedbackQuestions.json'
-
+import { toast } from 'react-toastify';
 
 function Feedback() {
     const [accessToken, setToken] = useState(sessionStorage.getItem('accessToken'));
@@ -18,7 +18,7 @@ function Feedback() {
 
     useEffect(() => {
         if (!accessToken) {
-            navigate('/login');
+            navigate('/');
         }
 
         // console.log(decodedPID, decodedStart, decodedEnd)
@@ -65,7 +65,8 @@ function Feedback() {
                 alert('Failed to save data');
             }
             else {
-                alert('feedback given succussfully')
+                toast.success("feedback given succussfully")
+                // alert('feedback given succussfully')
             }
 
             navigate('/feedback');
@@ -105,36 +106,28 @@ function Feedback() {
             <h2 className="text-3xl font-bold mb-6 text-white">Feedback Form</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">  
-                    <label htmlFor="q1" className="block font-bold">{Questions.common.q1}</label>
+                    <label htmlFor="q1" className="block font-bold">{Questions[role].q1}</label>
                     <input type="number" id="q1" name="q1" value={formData.q1} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="q2" className="block font-bold">{Questions.common.q2}</label>
+                    <label htmlFor="q2" className="block font-bold">{Questions[role].q2}</label>
                     <input type="number" id="q2" name="q2" value={formData.q2} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="q3" className="block font-bold">{Questions.common.q3}</label>
+                    <label htmlFor="q3" className="block font-bold">{Questions[role].q3}</label>
                     <input type="number" id="q3" name="q3" value={formData.q3} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="q4" className="block font-bold">{Questions.common.q4}</label>
+                    <label htmlFor="q4" className="block font-bold">{Questions[role].q4}</label>
                     <input type="number" id="q4" name="q4" value={formData.q4} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="q5" className="block font-bold">{Questions.common.q5}</label>
+                    <label htmlFor="q5" className="block font-bold">{Questions[role].q5}</label>
                     <input type="number" id="q5" name="q5" value={formData.q5} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="q6" className="block font-bold">{Questions[role].q6}</label>
+                    <label htmlFor="q6" className="block font-bold">{Questions.common.q6}</label>
                     <input type="number" id="q6" name="q6" value={formData.q6} onChange={handleInputChange} min="1" max="5" className="form-input" required />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="q7" className="block font-bold">{Questions[role].q7}</label>
-                    <input type="number" id="q7" name="q7" value={formData.q7} onChange={handleInputChange} min="1" max="5" className="form-input" required />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="q8" className="block font-bold">{Questions[role].q8}</label>
-                    <input type="number" id="q8" name="q8" value={formData.q8} onChange={handleInputChange} min="1" max="5" className="form-input" required />
                 </div>
                 <div className="mb-4">
                     <label htmlFor="comments" className="block font-bold">Comments:</label>
@@ -150,3 +143,175 @@ function Feedback() {
 }
 
 export default Feedback;
+// Intern Feedback Questions:
+
+// Communication Skills:
+
+// How would you rate your communication skills during this internship?
+//  Excellent
+//  Good
+//  Average
+//  Below Average
+//  Poor
+// Learning and Development:
+
+// Did you feel that you received adequate training and guidance for your tasks?
+//  Yes, definitely
+//  Yes, to some extent
+//  No, there were gaps in training
+//  No, there was no training provided
+// Work Environment:
+
+// How would you describe the overall work environment and culture?
+//  Supportive and positive
+//  Neutral
+//  Stressful or challenging
+//  Negative or toxic
+// Tasks and Responsibilities:
+
+// Did you feel that your assigned tasks and responsibilities were meaningful and relevant to your learning?
+//  Yes, very much so
+//  Yes, to some extent
+//  No, they were not relevant
+//  No, I did not receive enough tasks
+// Supervision and Feedback:
+
+// How would you rate the feedback and guidance provided by your supervisor/mentor?
+//  Very helpful and constructive
+//  Somewhat helpful
+//  Not helpful or unclear
+//  No feedback was provided
+
+
+
+// Software Engineer Feedback Questions:
+
+// Technical Skills:
+
+// How confident do you feel about your technical skills after working on the assigned projects?
+//  Extremely confident
+//  Confident
+//  Somewhat confident
+//  Not very confident
+//  Not confident at all
+// Project Management:
+
+// Did you find the project management processes effective in ensuring project success?
+//  Very effective
+//  Moderately effective
+//  Somewhat effective
+//  Ineffective
+//  No project management processes were followed
+// Team Collaboration:
+
+// How would you rate the collaboration and teamwork within your development team?
+//  Excellent
+//  Good
+//  Average
+//  Below Average
+//  Poor
+// Training and Support:
+
+// Did you receive adequate training and support to fulfill your technical responsibilities?
+//  Yes, definitely
+//  Yes, to some extent
+//  No, there were gaps in training
+//  No, I did not receive enough support
+// Career Growth Opportunities:
+
+// Do you feel that this role provided opportunities for your career growth and skill development?
+//  Strongly agree
+//  Agree
+//  Neutral
+//  Disagree
+//  Strongly disagree
+
+
+
+
+// Consultant Feedback Questions:
+
+// Client Interaction:
+
+// How would you rate your ability to effectively interact with clients and understand their needs?
+//  Excellent
+//  Good
+//  Average
+//  Below Average
+//  Poor
+// Problem-Solving Skills:
+
+// How often did you encounter challenging problems in your consulting projects?
+//  Frequently
+//  Occasionally
+//  Rarely
+//  Never
+// Consulting Methodology:
+
+// How well did the consulting methodology and strategies align with addressing client issues?
+//  Very well
+//  Moderately well
+//  Somewhat well
+//  Not well
+//  No specific consulting methodology was followed
+// Client Satisfaction:
+
+// Based on client feedback, how satisfied were they with the consulting services provided?
+//  Highly satisfied
+//  Satisfied
+//  Neutral
+//  Dissatisfied
+//  Highly dissatisfied
+// Professional Growth:
+
+// Did this consulting role contribute significantly to your professional growth and expertise?
+//  Yes, significantly
+//  Yes, to some extent
+//  No, limited growth opportunities
+//  No, it hindered my professional growth
+
+
+
+
+
+// Tribe Master Feedback Questions:
+
+// Leadership Skills:
+
+// How would you rate your leadership and management skills in leading your tribe/team?
+//  Exceptional
+//  Effective
+//  Average
+//  Needs improvement
+//  Poor
+// Team Performance:
+
+// How satisfied are you with the overall performance and productivity of your tribe/team?
+//  Very satisfied
+//  Satisfied
+//  Neutral
+//  Dissatisfied
+//  Very dissatisfied
+// Strategic Planning:
+
+// Did your strategic planning contribute significantly to achieving the tribe/team's goals?
+//  Yes, significantly
+//  Yes, to some extent
+//  No, limited impact
+//  No, it hindered progress
+// Feedback and Coaching:
+
+// How effective were you in providing feedback and coaching to team members for their growth?
+//  Highly effective
+//  Moderately effective
+//  Somewhat effective
+//  Ineffective
+//  No feedback or coaching provided
+// Innovation and Adaptability:
+
+// How innovative and adaptable was your tribe/team in responding to challenges and changes?
+//  Very innovative and adaptable
+//  Moderately innovative and adaptable
+//  Somewhat innovative and adaptable
+//  Not very innovative and adaptable
+//  Not innovative or adaptable0222222.310..................

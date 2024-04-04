@@ -11,7 +11,7 @@ export const Signup = ({ isLoggedIn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [role, setRole] = useState('');
-
+  const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,11 +24,16 @@ export const Signup = ({ isLoggedIn }) => {
         email: email,
         userType: userType,
         role: role
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`
+        }
       });
 
       if (response.status === 201) {
         toast.success("User registered successfully! Please check your email for further instructions")
-       
+       navigate('/adminhome')
         // Redirect or perform actions based on successful signup
       }
     } catch (error) {
@@ -59,16 +64,54 @@ export const Signup = ({ isLoggedIn }) => {
               <input type='email' value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={handleKeyDown} placeholder='Enter your E-Mail Address' />
             </div>
             <div className='login-input-row'>
-              <label><span>User Type:</span></label>
-              <select value={userType} onChange={(e) => setUserType(e.target.value)} onKeyDown={handleKeyDown}>
-                <option value='user'>User</option>
-                <option value='admin'>Admin</option>
-              </select>
-            </div>
-            <div className='login-input-row'>
-              <label><span>Role:</span></label>
-              <input type='text' value={role} onChange={(e) => setRole(e.target.value)} onKeyDown={handleKeyDown} placeholder='Enter Role' />
-            </div>
+  <label><span>User Type:</span></label>
+  <select
+    value={userType}
+    onChange={(e) => setUserType(e.target.value)}
+    onKeyDown={handleKeyDown}
+    style={{
+      padding: '8px',
+      fontSize: '16px',
+      borderRadius: '4px',
+      border: '1px solid #B2ECEF',
+      backgroundColor: '#fff',
+      color: '#333',
+      cursor: 'pointer',
+      outline: 'none',
+      width: '200px',
+      marginBottom: '20px', // Add margin bottom for space
+    }}
+  >
+    <option value='user'>User</option>
+    <option value='admin'>Admin</option>
+  </select>
+</div>
+<div className='login-input-row'>
+  <label><span>Role:</span></label>
+  <select
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+    onKeyDown={handleKeyDown}
+    style={{
+      padding: '8px',
+      fontSize: '16px',
+      borderRadius: '4px',
+      border: '1px solid #B2ECEF',
+      backgroundColor: '#fff',
+      color: '#333',
+      cursor: 'pointer',
+      outline: 'none',
+      width: '200px',
+      marginBottom: '20px', // Add margin bottom for space
+    }}
+  >
+    <option value='Intern'>Intern</option>
+    <option value="Software Engineer">Software Engineer</option>
+    <option value="Consultant">Consultant</option>
+    <option value="Tribe Master">Tribe Master</option>
+  </select>
+</div>
+
             <div className='login-input-row'>
               <button type='submit' className='login-button' disabled={loading}>Create</button>
             </div>

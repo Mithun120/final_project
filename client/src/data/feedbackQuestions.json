@@ -1,20 +1,34 @@
 {
     "common": {
-      "q1": "How would you rate the project overall?",
-      "q2": "How satisfied are you with the project management this week?",
-      "q3": "How effective was the communication during the project this week?",
-      "q4": "How well did the project meet the deadlines this week?",
-      "q5": "How would you rate the quality of work delivered this week?"
+      "q6": "How would you rate the project overall?"
+      
     },
     "intern": {
-      "q6": "How well did the project meet the client's requirements this week?",
-      "q7": "How likely are you to recommend our services to others this week?",
-      "q8": "On a scale of 1 to 5, how satisfied are you with the consulting services provided this week?"
+      "q1": "How would you rate your communication skills during this internship?",
+      "q2": "Did you feel that you received adequate training and guidance for your tasks?",
+      "q3": "How would you describe the overall work environment and culture?",
+      "q4": "Did you feel that your assigned tasks and responsibilities were meaningful and relevant to your learning?",
+      "q5": "How would you rate the feedback and guidance provided by your supervisor/mentor?"
     },
-    "engineer": {
-      "q6": "How satisfied are you with the technical aspects of the project this week?",
-      "q7": "How well did the project adhere to the specifications this week?",
-      "q8": "On a scale of 1 to 5, how satisfied are you with the technical aspects of the project this week?"
+    "Software Engineer": {
+      "q1": "How confident do you feel about your technical skills after working on the assigned projects?",
+      "q2": "Did you find the project management processes effective in ensuring project success?",
+      "q3": "How would you rate the collaboration and teamwork within your development team?",
+      "q4": "Did you receive adequate training and support to fulfill your technical responsibilities?",
+      "q5": "Do you feel that this role provided opportunities for your career growth and skill development?"
+    },
+    "Consultant":{
+      "q1": "How would you rate your ability to effectively interact with clients and understand their needs?",
+      "q2": "How often did you encounter challenging problems in your consulting projects?",
+      "q3": "How well did the consulting methodology and strategies align with addressing client issues?",
+      "q4": "Based on client feedback, how satisfied were they with the consulting services provided?",
+      "q5": "Did this consulting role contribute significantly to your professional growth and expertise?"
+    },
+    "Tribe Master":{
+      "q1": "How would you rate your leadership and management skills in leading your tribe/team?",
+      "q2": "How satisfied are you with the overall performance and productivity of your tribe/team?",
+      "q3": "Did your strategic planning contribute significantly to achieving the tribe/team's goals?",
+      "q4": "How effective were you in providing feedback and coaching to team members for their growth?",
+      "q5": "How innovative and adaptable was your tribe/team in responding to challenges and changes?"
     }
   }
-  
