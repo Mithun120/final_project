@@ -62,6 +62,10 @@ const timesheetSchema = new Schema({
     visible:{
       type:Boolean,
       default:true
+    },
+    flag:{
+      type:Boolean,
+      default:false
     }
   });
   

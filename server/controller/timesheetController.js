@@ -87,6 +87,7 @@ const CreateUpdateTimesheets = async (req, res) => {
     try {
         console.log("44")
         const data = req.body;
+        console.log(req.body)
 
         for (const [key, value] of Object.entries(data)) {
             const existingTimesheet = await timesheetModel.findOne({

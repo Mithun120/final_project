@@ -10,7 +10,8 @@ const feedbackSchema = new Schema({
     q5:{ type: Number, required: true },
     q6:{ type: Number, required: true },
     comments:String,
-    // filled: { type: Boolean, default: false }   ,
+
+    flag: { type: Boolean, default: false }   ,
   created_at: {
     type: Date,
     default: Date.now

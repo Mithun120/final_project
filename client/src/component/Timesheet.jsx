@@ -51,8 +51,9 @@ function TimeSheetParent() {
         const [TotalHours, SetTotalHours] = useState(0);
         const firstID = Object.keys(Timesheetdata)[0];
         const navigate = useNavigate();
-
+        const [flag,setFlag]=useState(false)
         const [ID, setID] = useState(0);
+        const[checkFlag,setCheckFlag]=useState(false)
     
         useEffect(() => {
             const fetchData = async () => {
@@ -67,8 +68,17 @@ function TimeSheetParent() {
                     });
     
                     const data = await response.json();
-                    // console.log(data);
                     setTimesheetdata(data.payload)
+                    const [temp] = Object.keys(data.payload);
+                    // const payloadArray = data.payload[temp];
+                    if(data.payload[temp].flag === true) navigate("/feedback")
+
+                    
+                    console.log(temp)
+                    setCheckFlag( data.payload[temp].flag);
+                    // console.log(payloadArray.flag) 
+                    console.log(checkFlag)
+                    
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
                 }
@@ -100,6 +110,36 @@ function TimeSheetParent() {
         }, []);
     
         const handleSubmit = async (e) => {
+            try {
+                const [id] = Object.keys(Timesheetdata);
+                const payload = Timesheetdata;
+                payload[id].flag = true;
+
+                const response = await fetch('http://localhost:4000/timesheet/CreateUpdateTimesheets', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+                    },
+        
+                    body: JSON.stringify(payload),
+                });
+
+                const start_period = Timesheetdata[id].start_period;
+                const end_period = Timesheetdata[id].end_period;
+                const projectId = Timesheetdata[id].projectId;
+                sessionStorage.setItem("start_period",start_period)
+                sessionStorage.setItem("end_period",end_period)
+                sessionStorage.setItem("projectId_timesheet",projectId)
+                navigate("/feedback")
+                // const data = await response.json();
+                // console.log(response);
+                // setTimesheetdata(data.payload)
+            } catch (error) {
+                console.error('Error fetching timesheet data:', error);
+            }
+        }
+        const handleSave = async (e) => {
             console.log(Timesheetdata);
             try {
                 const response = await fetch('http://localhost:4000/timesheet/CreateUpdateTimesheets', {
@@ -110,15 +150,15 @@ function TimeSheetParent() {
                     },
                     body: JSON.stringify(Timesheetdata),
                 });
-
-                const [id] = Object.keys(Timesheetdata);
-                const start_period = Timesheetdata[id].start_period;
-                const end_period = Timesheetdata[id].end_period;
-                const projectId = Timesheetdata[id].projectId;
-                sessionStorage.setItem("start_period",start_period)
-                sessionStorage.setItem("end_period",end_period)
-                sessionStorage.setItem("projectId_timesheet",projectId)
-                navigate("/feedback")
+                navigate('/userhome')
+                // const [id] = Object.keys(Timesheetdata);
+                // const start_period = Timesheetdata[id].start_period;
+                // const end_period = Timesheetdata[id].end_period;
+                // const projectId = Timesheetdata[id].projectId;
+                // sessionStorage.setItem("start_period",start_period)
+                // sessionStorage.setItem("end_period",end_period)
+                // sessionStorage.setItem("projectId_timesheet",projectId)
+                
                 // const data = await response.json();
                 // console.log(response);
                 // setTimesheetdata(data.payload)
@@ -306,6 +346,7 @@ function TimeSheetParent() {
                     </tbody>
                 </table>
                 <div>
+                     <button onClick={handleSave} className="btn btn-primary" label="Submit">Save</button>
                     <button onClick={handleSubmit} className="btn btn-primary" label="Submit">Submit</button>
                 </div>
             </div>
