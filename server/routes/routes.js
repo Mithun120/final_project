@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const accessTokenSecret = 'youraccesstokensecret';
 let User = require("../schema/User")
 let jswtUtils = require("../auth/auth_utils");
-const { default: ChangePassword } = require('../../client/src/component/changePassword');
+// const { default: ChangePassword } = require('../../client/src/component/changePassword');
+const bcrypt = require('bcrypt');
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -138,7 +139,7 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
     try {
       // Find the user by email
       const foundUser = await User.findOne({ email });
-  
+      const changedPassword=changedPassword
       if (!foundUser) {
         return res.status(404).json({ error: 'User not found.' });
       }
@@ -154,7 +155,7 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
   
       // Update user's password hash
       foundUser.password = newPasswordHash;
-  
+      // foundUser.changedPassword=changedPassword 
       // Save the updated user (replace with your specific save method if necessary)
       await foundUser.save();
       const transporter = nodemailer.createTransport({
@@ -235,7 +236,7 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
       const user = await User.findOne({ email });
       console.log(user)
       // if(user.changedPassword==false){
-
+      //     return res.status(200).json({message:'Not changed Password for the 1st time'})
       // }
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });

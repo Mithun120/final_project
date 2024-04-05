@@ -69,10 +69,11 @@ function TimeSheetParent() {
                     });
     
                     const data = await response.json();
+                    console.log(data)
                     setTimesheetdata(data.payload)
                     const [temp] = Object.keys(data.payload);
-                    // const payloadArray = data.payload[temp];
-                    if(data.payload[temp].flag === true) navigate("/feedback")
+                    const payloadArray = data.payload[temp];
+                    // if(data.payload[temp].flag === true) navigate("/feedback")
 
                     
                     console.log(temp)
@@ -133,9 +134,9 @@ function TimeSheetParent() {
                 sessionStorage.setItem("end_period",end_period)
                 sessionStorage.setItem("projectId_timesheet",projectId)
                 navigate("/feedback")
-                // const data = await response.json();
+                const data = await response.json();
                 // console.log(response);
-                // setTimesheetdata(data.payload)
+                setTimesheetdata(data.payload)
             } catch (error) {
                 console.error('Error fetching timesheet data:', error);
             }
@@ -152,17 +153,17 @@ function TimeSheetParent() {
                     body: JSON.stringify(Timesheetdata),
                 });
                 navigate('/userhome')
-                // const [id] = Object.keys(Timesheetdata);
-                // const start_period = Timesheetdata[id].start_period;
-                // const end_period = Timesheetdata[id].end_period;
-                // const projectId = Timesheetdata[id].projectId;
-                // sessionStorage.setItem("start_period",start_period)
-                // sessionStorage.setItem("end_period",end_period)
-                // sessionStorage.setItem("projectId_timesheet",projectId)
+                const [id] = Object.keys(Timesheetdata);
+                const start_period = Timesheetdata[id].start_period;
+                const end_period = Timesheetdata[id].end_period;
+                const projectId = Timesheetdata[id].projectId;
+                sessionStorage.setItem("start_period",start_period)
+                sessionStorage.setItem("end_period",end_period)
+                sessionStorage.setItem("projectId_timesheet",projectId)
                 
-                // const data = await response.json();
+                const data = await response.json();
                 // console.log(response);
-                // setTimesheetdata(data.payload)
+                setTimesheetdata(data.payload)
             } catch (error) {
                 console.error('Error fetching timesheet data:', error);
             }

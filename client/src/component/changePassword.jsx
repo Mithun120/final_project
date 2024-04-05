@@ -23,6 +23,7 @@ const ChangePassword = () => {
         email: email,
         oldPassword: oldPassword,
         newPassword: newPassword,
+        changedPassword:true
       });
   
       if (response && response.data && response.data.message) {

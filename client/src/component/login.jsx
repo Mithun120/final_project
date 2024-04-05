@@ -112,9 +112,13 @@ const  Login = ({ setIsLoggedIn }) => {
         email: email,
         password: pass
       });
-
+      console.log(response.message)
       console.log(response.data.accesstoken)
-      if (response.status === 200 && response.data.userType === "admin") {
+      // if(response.status==200 && response.data.message=="Not changed Password for the 1st time"){
+      //   toast.info("Pls change the Password")
+      //   navigate('/changepassword')
+      // }
+       if (response.status === 200 && response.data.userType === "admin") {
         // alert(response.data.message);
         setIsLoggedIn(true)
         sessionStorage.setItem('accessToken', response.data.accesstoken);

@@ -1,6 +1,8 @@
 const timesheetModel=require('../schema/timesheet')
+const userModel = require('../schema/User')
 const projectAllocationSchema = require("../schema/allocateProjects");
-
+const cron = require('node-cron');
+const nodemailer = require('nodemailer');
 const {ConvertTimesheetFormat,RetreiveProjectName} = require('../auth/timesheet_utils')
 
 
@@ -121,6 +123,103 @@ const CreateUpdateTimesheets = async (req, res) => {
         res.status(500).json({ message: 'Error creating/updating timesheets' });
     }
 };
+
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "mithunm.20cse@kongu.edu",
+      pass: "Mithun123!!",
+    },
+  });
+
+//   cron.schedule('0 10 * * 5', async () => {
+//     // Get the start and end date for the current week (adjust logic based on your requirements)
+//     const currentDate = new Date();
+//     const startDate = new Date(currentDate);
+//     startDate.setDate(startDate.getDate() - startDate.getDay()); // Set to Sunday of current week
+//     const endDate = new Date(startDate);
+//     endDate.setDate(endDate.getDate() + 6); // Set to Saturday of current week
+  
+
+//     const usersWithoutFeedback = await timesheetModel.find({
+//         start_period: { $lte: endDate },
+//         end_period: { $gte: startDate },
+//         flag: false // Assuming 'flag' indicates whether feedback is submitted or not
+//     }).select('email');
+
+//     usersWithoutFeedback.forEach(user => {
+//         transporter.sendMail({
+//             from: 'dhiyanesh7338942092@gmail.com',
+//             to: user.email,
+//             subject: 'Reminder: Please fill your feedback',
+//             text: 'This is a reminder to fill your feedback for the current week.'
+//         }, (err, info) => {
+//             if (err) {
+//                 console.error('Error sending email:', err);
+//             } else {
+//                 console.log('Email sent:', info.response);
+//             }
+//         });
+//     });
+// });
+
+cron.schedule('0 9.30 * * 5', async () => {
+    // Get the start and end date for the current week (assuming the week starts on Sunday)
+    const currentDate = new Date();
+    const startDate = new Date(currentDate);
+    startDate.setDate(startDate.getDate() - startDate.getDay()); // Set to Sunday of current week
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 6); // Set to Saturday of current week
+    console.log("user")
+
+    // Find all users
+    const users = await userModel.find();
+
+    // Loop through each user
+    for (const user of users) {
+
+        // Check if the user has a corresponding timesheet entry for the current week
+        const timesheet = await timesheetModel.findOne({
+            email: user.email,
+            start_period: { $lte: endDate },
+            end_period: { $gte: startDate }
+        });
+
+        // If there's no timesheet entry or if the flag is false, trigger the email notification
+        if (!timesheet) {
+            // Send email notification to the user
+            transporter.sendMail({
+                from: 'mithunm.20cse@kongu.edu',
+                to: user.email,
+                subject: 'Reminder: Submit your timesheet & feedback',
+                text: 'This is a reminder to submit your timesheet & feedback for the current week.'
+            }, (err, info) => {
+                if (err) {
+                    console.error('Error sending email:', err);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+        }
+        else if( !timesheet.flag){
+            transporter.sendMail({
+                from: 'mithunm.20cse@kongu.edu',
+                to: user.email,
+                subject: 'Reminder: Submit your feedback',
+                text: 'This is a reminder to submit your feedback for the current week.'
+            }, (err, info) => {
+                if (err) {
+                    console.error('Error sending email:', err);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+        }
+    }
+});
+
+
 
 
 module.exports ={

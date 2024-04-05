@@ -10,3 +10,4 @@ const projectSchema = new Schema({
     collection: 'projects',timestamps: true
 })
 module.exports = mongoose.model('Project', projectSchema)   
+

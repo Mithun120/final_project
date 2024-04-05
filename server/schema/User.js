@@ -20,7 +20,7 @@ const userSchema = new Schema({
     changedPassword:{
         type:Boolean,
         default:false
-
+    }
     ,
     otp:{
         type:Number

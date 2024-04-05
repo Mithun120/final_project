@@ -75,25 +75,25 @@ function Feedback() {
             console.error('Error submitting feedback:', error.message)
         }
 
-        try {
-            const response = await fetch('http://localhost:5000/api/FeedbackHistory', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
-                },
-                body: JSON.stringify({
-                    projectId: projectId,
-                    start_period: start_period,
-                    end_period: end_period,
-                    feedback_given: true
-                }),
-            });
+        // try {
+        //     const response = await fetch('http://localhost:5000/api/FeedbackHistory', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+        //         },
+        //         body: JSON.stringify({
+        //             projectId: projectId,
+        //             start_period: start_period,
+        //             end_period: end_period,
+        //             feedback_given: true
+        //         }),
+        //     });
 
-        } catch (error) {
-            alert('Error updating feedback history:', error.message)
-            console.error('Error fetching timesheet data:', error);
-        }
+        // } catch (error) {
+        //     alert('Error updating feedback history:', error.message)
+        //     console.error('Error fetching timesheet data:', error);
+        // }
 
     };
 
