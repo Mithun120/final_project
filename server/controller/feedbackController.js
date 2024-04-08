@@ -7,6 +7,25 @@ const CreateFeedbackEntry = async (req, res) => {
       const role = req.user.role;
       const { projectId, start_period, end_period, feedback } = req.body;
 
+
+      const feedbackDataFilled = await feedbackModel.findOne({
+        email: email,
+        startDate,
+        endDate,
+      });
+      if (!feedbackDataFilled) {
+        // No feedback found, send a response indicating no feedback
+        return res.status(200).json({ message: null });
+      }
+      // Feedback found, send a success message
+      return res
+        .status(200)
+        .json({ message: "Feedback already submitted for this week." });
+    } catch (error) {
+      console.error("Error fetching feedback details:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
       console.log(req.body);
 
       const newFeedback = new feedbackModel({

@@ -1,4 +1,4 @@
-/* Write your CSS code here. */
+/* Write your CSS code here.
 .bg-container {
     display: flex;
     flex-direction: column;
@@ -49,3 +49,52 @@
     height: 10vh;
     width: 100%;
   }
+   */
+
+
+
+   .star-icon {
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.star-icon:hover {
+    color: #FFD700; /* Change to desired hover color */
+}
+
+.star-filled {
+    color: #FFD700 !important; /* Change to desired filled star color */
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* Change to desired background color */
+}
+
+.grid {
+  width: 100%;
+  max-width: 600px; /* Adjust the max-width as needed */
+}
+
+.col-span-1 {
+  text-align: center;
+}
+
+.btn-submit {
+  background-color: #4a90e2; /* Change to desired button background color */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #357db8; /* Change to desired hover background color */
+}

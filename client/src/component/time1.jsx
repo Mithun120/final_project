@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import "../styles/timesheet.css"
 // import { Logout } from './Logout';
-
-function TimeSheetParent() {
+import '../styles/timesheet.css'
+function time11() {
 
     const [startDate, setStartDate] = useState(new Date('2024-01-01'));
     const [endDate, setEndDate] = useState(new Date('2024-01-07'));
@@ -70,9 +69,10 @@ function TimeSheetParent() {
                     });
     
                     const data = await response.json();
+                    console.log(data)
                     setTimesheetdata(data.payload)
                     const [temp] = Object.keys(data.payload);
-                    // const payloadArray = data.payload[temp];
+                    const payloadArray = data.payload[temp];
                     // if(data.payload[temp].flag === true) navigate("/feedback")
 
                     
@@ -134,9 +134,9 @@ function TimeSheetParent() {
                 sessionStorage.setItem("end_period",end_period)
                 sessionStorage.setItem("projectId_timesheet",projectId)
                 navigate("/feedback")
-                // const data = await response.json();
+                const data = await response.json();
                 // console.log(response);
-                // setTimesheetdata(data.payload)
+                setTimesheetdata(data.payload)
             } catch (error) {
                 console.error('Error fetching timesheet data:', error);
             }
@@ -153,17 +153,17 @@ function TimeSheetParent() {
                     body: JSON.stringify(Timesheetdata),
                 });
                 navigate('/userhome')
-                // const [id] = Object.keys(Timesheetdata);
-                // const start_period = Timesheetdata[id].start_period;
-                // const end_period = Timesheetdata[id].end_period;
-                // const projectId = Timesheetdata[id].projectId;
-                // sessionStorage.setItem("start_period",start_period)
-                // sessionStorage.setItem("end_period",end_period)
-                // sessionStorage.setItem("projectId_timesheet",projectId)
+                const [id] = Object.keys(Timesheetdata);
+                const start_period = Timesheetdata[id].start_period;
+                const end_period = Timesheetdata[id].end_period;
+                const projectId = Timesheetdata[id].projectId;
+                sessionStorage.setItem("start_period",start_period)
+                sessionStorage.setItem("end_period",end_period)
+                sessionStorage.setItem("projectId_timesheet",projectId)
                 
-                // const data = await response.json();
+                const data = await response.json();
                 // console.log(response);
-                // setTimesheetdata(data.payload)
+                setTimesheetdata(data.payload)
             } catch (error) {
                 console.error('Error fetching timesheet data:', error);
             }
@@ -308,9 +308,7 @@ function TimeSheetParent() {
                     {['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun'].map((day, index) => (
                         <td key={index}>
                             <input
-                                type="number"
-                                min="0"
-                                max="8"
+                                type="text"
                                 value={data[1][day]}
                                 id={id}
                                 onChange={(e) => ChangeField(e, day)}
@@ -326,12 +324,11 @@ function TimeSheetParent() {
         }
     
         return (
-            <d className='main'>
+            <div className='main'>
                 <h3>Total Time: {TotalHours}</h3>
                 <p className='subHeading'>Allocation Extension</p>
                 <p className='subHeading2'>TimeSheet</p>
-                <div className="table-container">
-                <table className="table table-borderless" >
+                <table className="table table-borderless">
                     <thead>
                         <tr>
                             <th>Project Type</th>
@@ -344,34 +341,35 @@ function TimeSheetParent() {
                                 return <th key={index}>{day.toLocaleDateString('en-US', options)}</th>;
                             })}
                             <th>Total</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <TimeSheetLoop setID={setID} />
                     </tbody>
                 </table>
-                </div>
                 <div>
-                     <button onClick={handleSave} className='button-29' style={{marginTop:"8%"}} label="Submit">Save</button>
-                    <button onClick={handleSubmit} className='button-29' label="Submit">Submit</button>
+                     <button onClick={handleSave} className="btn btn-primary" label="Submit">Save</button>
+                    <button onClick={handleSubmit} className="btn btn-primary" label="Submit">Submit</button>
                     {/* <Logout setIsLoggedIn ={ setIsLoggedIn } className='button-62'/> */}
 
                 </div>
-            </d>
+            </div>
         );
     }
     
     
 
     return (
-        <div className="time-sheet-container">
+        <div className="container">
             <h1>TimeSheet</h1>
-            <div className="time-sheet-row" style={{marginBottom:"40px"}}>
+            <div className="row">
                 <div className="col-md-6">
                     <div className="date-navigation">
-                        <button onClick={handlePreviousWeek} className="button-24">&lt;</button>
+                        <button onClick={handlePreviousWeek} className="btn btn-primary">&lt;</button>
                         <span>{weekdaysval[0]} - {weekdaysval[6]}</span>
-                        <button onClick={handleNextWeek} className="button-24">&gt;</button>
+                        <button onClick={handleNextWeek} className="btn btn-primary">&gt;</button>
                     </div>
                 </div>
                 {/* <div className="col-md-6 text-right">
@@ -387,4 +385,4 @@ function TimeSheetParent() {
     );
 }
 
-export default TimeSheetParent;
+export default time11;
