@@ -342,7 +342,7 @@ function Feedback() {
     const projectId = sessionStorage.getItem('projectId_timesheet');
     const start_period = sessionStorage.getItem('start_period');
     const end_period = sessionStorage.getItem('end_period');
-
+    // const [filledState,setFilledState]=useState(false)
     useEffect(() => {
         if (!accessToken) {
             navigate('/');
@@ -396,20 +396,80 @@ function Feedback() {
             });
 
             const res = await response.json();
-            if (res.message !== "Feedback data saved") {
-                alert('Failed to save data');
-            } else {
+            if (res.message == "Feedback data saved") {
                 toast.success("Feedback given successfully");
-            }
+                navigate('/userhome')
+            }else if(res.message=="Feedback already submitted for this week."){
+                toast.info("Feedback already submitted for this week.")
+            } 
+            
 
-            navigate('/feedback');
 
         } catch (error) {
             console.error('Error submitting feedback:', error.message);
         }
     };
 
-    return (
+
+    const terminalLoaderStyle = {
+        border: '0.1em solid #333',
+        backgroundColor: '#1a1a1a',
+        color: '#0f0',
+        fontFamily: 'Courier New, Courier, monospace',
+        fontSize: '1em',
+        padding: '1.5em 1em',
+        width: '12em',
+        margin: '100px auto',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        borderRadius: '4px',
+        position: 'relative',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+      };
+    
+      const terminalHeaderStyle = {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        height: '1.5em',
+        backgroundColor: '#333',
+        borderTopLeftRadius: '4px',
+        borderTopRightRadius: '4px',
+        padding: '0 0.4em',
+        boxSizing: 'border-box',
+      };
+    
+      const terminalTitleStyle = {
+        float: 'left',
+        lineHeight: '1.5em',
+        color: '#eee',
+      };
+    
+      const terminalControlsStyle = {
+        float: 'right',
+      };
+    
+      const controlStyle = {
+        display: 'inline-block',
+        width: '0.6em',
+        height: '0.6em',
+        marginLeft: '0.4em',
+        borderRadius: '50%',
+      };
+    
+      const textStyle = {
+        display: 'inline-block',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        borderRight: '0.2em solid green', /* Cursor */
+        animation: 'typeAndDelete 4s steps(11) infinite, blinkCursor 0.5s step-end infinite alternate',
+        marginTop: '1.5em',
+      };
+
+     return (
+    
+    <>
         <div style={{
             display: 'flex',
             justifyContent: 'center',
@@ -481,12 +541,14 @@ function Feedback() {
                             resize: 'vertical',
                         }} required />
                     </div>
+                    
                     <button type="submit" style={{ display: 'block', margin: '0 auto' }} className="button-62">Submit</button>
 
                 </form>
             </div>
-        </div>
+        </div>     </>
     );
 }
 
 export default Feedback;
+

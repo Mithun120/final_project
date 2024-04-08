@@ -7,28 +7,17 @@ const CreateFeedbackEntry = async (req, res) => {
       const role = req.user.role;
       const { projectId, start_period, end_period, feedback } = req.body;
 
+  // console.log("oo",req.body)
 
       const feedbackDataFilled = await feedbackModel.findOne({
         email: email,
-        startDate,
-        endDate,
+        start_period,
+        end_period,
       });
+
       if (!feedbackDataFilled) {
         // No feedback found, send a response indicating no feedback
-        return res.status(200).json({ message: null });
-      }
-      // Feedback found, send a success message
-      return res
-        .status(200)
-        .json({ message: "Feedback already submitted for this week." });
-    } catch (error) {
-      console.error("Error fetching feedback details:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
-      console.log(req.body);
-
-      const newFeedback = new feedbackModel({
+        const newFeedback = new feedbackModel({
           email: email,
           projectId: projectId,
           role: role,
@@ -44,19 +33,23 @@ const CreateFeedbackEntry = async (req, res) => {
           created_at: new Date()
       });
 
-      try {
+      
           const result = await newFeedback.save();
-          console.log(result);
-          res.json({ message: "Feedback data saved" });
-      } catch (error) {
-          console.error(error);
+          console.log("result daa",result);
+          return res.json({ message: "Feedback data saved" });
+      
       }
+      // Feedback found, send a success message
+      return res
+        .status(200)
+        .json({ message: "Feedback already submitted for this week." });
+    } 
 
-  } catch (error) {
+     catch (error) {
       console.log(error);
       res.json({ "message": "unable to create feedback entry" })
+    }
   }
-}
 module.exports = {
   CreateFeedbackEntry
 }

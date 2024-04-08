@@ -150,7 +150,7 @@ const transporter = nodemailer.createTransport({
 
 //     usersWithoutFeedback.forEach(user => {
 //         transporter.sendMail({
-//             from: 'dhiyanesh7338942092@gmail.com',
+//             from: 'mithunm.20cse@kongu.edu',
 //             to: user.email,
 //             subject: 'Reminder: Please fill your feedback',
 //             text: 'This is a reminder to fill your feedback for the current week.'
