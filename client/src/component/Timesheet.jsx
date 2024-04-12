@@ -367,7 +367,7 @@ function TimeSheetParent() {
 
       {down && <GoChevronDown onClick={() => setDown(false)} /> &&(
           <thead>
-            <tr className="TableHead">
+            <tr className="TableHead">  
               <th>Project ID</th>
               <tbody>
               <ul>
