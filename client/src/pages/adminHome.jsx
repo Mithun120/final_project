@@ -17,6 +17,9 @@ function Admindashboard({ setIsLoggedIn }) {
   const handleAllocateProject = () => {
     navigate('/projectallocate'); // Assuming '/resourceAllocation' is the route for resource allocation
   };
+  const handlePowerbi=()=>{
+    navigate('/powerbi')
+  }
  
   return (
     <div className="admin-dashboard">
@@ -25,6 +28,7 @@ function Admindashboard({ setIsLoggedIn }) {
       <button onClick={handleAddUser} className='button-62'>Add User</button>
       <button onClick={handleAddProject} className='button-62' >Add Project</button>
       <button onClick={handleAllocateProject} className='button-62' >Project Allocation</button>
+      <button onClick={handlePowerbi} className='button-62'>Dashboard</button>
       {/* <button onClick={handleResourceAllocation}>Resource Allocation</button> */}
       <Logout setIsLoggedIn ={ setIsLoggedIn } />
       </div>

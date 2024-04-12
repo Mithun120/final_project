@@ -16,7 +16,7 @@ import { Logout } from './component/Logout';
 import ProjectAllocationForm from './component/projectAllocation';
 import TimeSheetParent from './component/Timesheet';
 import Loader from './component/Loader';
-
+import Powerbi from './data/powerbi';
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -51,7 +51,7 @@ const App = () => {
         <Route path="/feedback" element={ <Feedback />}/>
         <Route path="/projectallocate" element={<ProjectAllocationForm/>}/>
         
-
+        <Route path="/powerbi" element={<Powerbi />}/>
 
 
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} /> 

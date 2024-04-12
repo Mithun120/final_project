@@ -41,4 +41,29 @@ router.post('/projectallocation', jswtUtils.authenticateJWT, async (req, res) =>
     }
 });
 
+router.get('/sendContent', jswtUtils.authenticateJWT,async (req, res) => {
+    const { email } = req.user;
+  
+    // Check if email is present
+    if (!email) {
+      return res.status(400).json({ error: 'Email header is missing' });
+    }
+  
+    try {
+      // Find projects based on email in MongoDB
+      const userProjects = await projectAllocationSchema.find({ email });
+  
+      if (userProjects.length === 0) {
+        return res.status(404).json({ error: 'No projects found for the provided email' });
+      }
+  
+      // Send the content (projectId, allocation_start, allocation_end) to the user
+      res.json(userProjects);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+
 module.exports = router;

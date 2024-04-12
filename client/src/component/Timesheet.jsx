@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../styles/timesheet.css"
-// import { Logout } from './Logout';
+import { GoChevronDown, GoChevronUp, GoArrowRight } from "react-icons/go";
 
+// import { Logout } from './Logout';
 function TimeSheetParent() {
+    const [down, setDown] = useState(false);
 
     const [startDate, setStartDate] = useState(new Date('2024-01-01'));
     const [endDate, setEndDate] = useState(new Date('2024-01-07'));
@@ -56,7 +58,9 @@ function TimeSheetParent() {
         const [flag,setFlag]=useState(false)
         const [ID, setID] = useState(0);
         const[checkFlag,setCheckFlag]=useState(false)
-    
+        const [projects, setProjects] = useState([]);
+
+        console.log("printing " ,projects)
         useEffect(() => {
             const fetchData = async () => {
                 try {
@@ -76,7 +80,7 @@ function TimeSheetParent() {
                     // if(data.payload[temp].flag === true) navigate("/feedback")
 
                     
-                    console.log(temp)
+                    console.log("********",temp)
                     setCheckFlag( data.payload[temp].flag);
                     // console.log(payloadArray.flag) 
                     console.log(checkFlag)
@@ -99,14 +103,35 @@ function TimeSheetParent() {
                     });
             
                     const data = await response.json();
-                    // console.log(data);
+                     console.log(data.payload);
+
                     SetAssignedprojects(data.payload);
                     // console.log(SetAssignedprojects)
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
                 }
             };
-    
+            // const fetchAllData = async () => {
+            //     try {
+            //         const response = await fetch('http://localhost:4000/allocate/sendContent', {
+            //             method: 'GET',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`
+            //             }
+            //         });
+            //        const res  =  await response.json()
+            //         console.log(res)
+                   
+            //       setProjects(res[0]);
+            //       console.log('Fetched data:', projects); 
+                  
+            //       setError('');
+            //     } catch (error) {
+            //       setProjects([]);
+            //     }
+            //   };
+            // fetchAllData()
             fetchUserProject();
             fetchData();
         }, []);
@@ -193,6 +218,8 @@ function TimeSheetParent() {
             SetTotalHours(GrandTotal);
             return (
                 <>
+               
+               
                     {Object.entries(Timesheetdata).map((t, k) => {
                         if (t[1].visible) {
                             return (
@@ -303,7 +330,10 @@ function TimeSheetParent() {
                                 <option value={Assignedproject.projectId} key={index}>{Assignedproject.projectId    }</option>
                             ))}
                         </select>
+                        
+                        
                     </td>
+                   
                     <td><textarea value={data[1].comments} id={id} onChange={(e) => ChangeField(e, 'comments')} rows="2" cols="30" className="form-control" /></td>
                     {['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun'].map((day, index) => (
                         <td key={index}>
@@ -326,9 +356,42 @@ function TimeSheetParent() {
         }
     
         return (
-            <d className='main'>
+            <div className='main'>
                 <h3>Total Time: {TotalHours}</h3>
-                <p className='subHeading'>Allocation Extension</p>
+                {/* <p className='subHeading'>Allocation Extension</p> */}
+                <div className="MainBands">
+        <p style={{ flexGrow: 1 }}>Assigned Projects</p>
+        {!down && <GoChevronDown onClick={() => setDown(true)} />}
+        {down && <GoChevronUp onClick={() => setDown(false)} />}
+      </div>
+
+      {down && <GoChevronDown onClick={() => setDown(false)} /> &&(
+          <thead>
+            <tr className="TableHead">
+              <th>Project ID</th>
+              <tbody>
+              <ul>
+            {Assignedprojects.map((project) => {
+                return <p>{project.projectId}</p>
+            })}
+          </ul>
+          
+                  </tbody>
+                  <th>Project ID</th>
+              <tbody>
+              <ul>
+            {Assignedprojects.map((project) => {
+                return <p>{project.projectName}</p>
+            })}
+          </ul>
+          
+                  </tbody>
+              
+            </tr>
+          </thead>
+         
+      )}
+
                 <p className='subHeading2'>TimeSheet</p>
                 <div className="table-container">
                 <table className="table table-borderless" >
@@ -357,7 +420,7 @@ function TimeSheetParent() {
                     {/* <Logout setIsLoggedIn ={ setIsLoggedIn } className='button-62'/> */}
 
                 </div>
-            </d>
+            </div>
         );
     }
     
