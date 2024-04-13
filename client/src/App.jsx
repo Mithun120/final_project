@@ -23,7 +23,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000); // Set loading to false after 2 seconds (you can adjust this value)
+    }, 2000); // Set loading to false after 2 seconds (you can adjust this value)
 
     return () => clearTimeout(timer);
   }, []);
@@ -31,14 +31,32 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ToastContainer
-        position="top-right"
-        style={{ marginTop: '3rem' }}
-        limit={1}
-      />
-      {/* {loading ? (
+     <ToastContainer
+  position="top-right"
+  autoClose={5000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  style={{
+    zIndex: 9999,
+    marginTop: '3rem',
+    maxWidth: '400px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#f0f0f0',
+    color: '#333',
+    fontSize: '14px',
+    padding: '16px',
+  }}
+/>
+
+       {loading ? (
         <Loader />
-      ) : ( */}
+      ) : ( 
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<Signup isLoggedIn={isLoggedIn}/>}  />
@@ -56,7 +74,7 @@ const App = () => {
 
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} /> 
            </Routes>
-           {/* )} */}
+            )} 
     </BrowserRouter>
     
   )

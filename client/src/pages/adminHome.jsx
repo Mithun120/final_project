@@ -24,7 +24,7 @@ function Admindashboard({ setIsLoggedIn }) {
   return (
     <div className="admin-dashboard">
       <div className='admin-heading'>
-      <h2 className='dashboard-heading'>Admin Dashboard</h2>
+      <h2 className='dashboard-heading' style={{ color: '#051923'}}>Admin Dashboard</h2>
       <button onClick={handleAddUser} className='button-62'>Add User</button>
       <button onClick={handleAddProject} className='button-62' >Add Project</button>
       <button onClick={handleAllocateProject} className='button-62' >Project Allocation</button>

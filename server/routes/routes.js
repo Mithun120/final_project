@@ -134,12 +134,11 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
  *         description: Internal server error
  */
   router.post('/update', async (req, res) => {
-    const { email, oldPassword, newPassword } = req.body;
+    const { email, oldPassword, newPassword,changedPassword } = req.body;
   
     try {
       // Find the user by email
       const foundUser = await User.findOne({ email });
-      const changedPassword=changedPassword
       if (!foundUser) {
         return res.status(404).json({ error: 'User not found.' });
       }
@@ -155,6 +154,7 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
   
       // Update user's password hash
       foundUser.password = newPasswordHash;
+      foundUser.changedPassword=changedPassword
       // foundUser.changedPassword=changedPassword 
       // Save the updated user (replace with your specific save method if necessary)
       await foundUser.save();
@@ -241,12 +241,16 @@ router.post('/signup',jswtUtils.authenticateJWT, async (req, res) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-  
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!user.changedPassword){
+        return res.status(200).json({message:"Pls change your default password"})
+      }
+      console.log("Password Match",passwordMatch)
       // Check if the provided password matches the user's password
-      if (password != user.password) {
+      if (!passwordMatch) {
         return res.status(401).json({ message: 'Invalid password.' });
       }
-  
+        
       // Check user type and send appropriate response
       if (user.userType === 'admin') {
         const accessToken = jwt.sign({ email: user.email, role:user.userType }, accessTokenSecret);

@@ -32,7 +32,7 @@ export const Signup = ({ isLoggedIn }) => {
       });
 
       if (response.status === 201) {
-        toast.success("User registered successfully! Please check your email for further instructions")
+        toast.success("User registered successfully! the email is sent to the user")
        navigate('/adminhome')
         // Redirect or perform actions based on successful signup
       }

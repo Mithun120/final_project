@@ -118,6 +118,10 @@ const  Login = ({ setIsLoggedIn }) => {
       //   toast.info("Pls change the Password")
       //   navigate('/changepassword')
       // }
+      if(response.status === 200 && response.data.message ==="Pls change your default password"){
+        navigate('/changepassword')
+      }
+      
        if (response.status === 200 && response.data.userType === "admin") {
         // alert(response.data.message);
         setIsLoggedIn(true)
@@ -142,10 +146,16 @@ const  Login = ({ setIsLoggedIn }) => {
         navigate("/userhome")
         // Display success message from the backend
         // Redirect or perform actions based on the response from the backend
+      }if (response.status === 404){
+        toast.info("User not found" )
       }
+      else if(response.status===  401){
+        toast.info("Invalid Password")
+      }
+     
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred during login.');
+      toast.error('An error occurred during login.');
     }
 
     setLoading(false);

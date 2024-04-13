@@ -132,6 +132,7 @@
     border-style: none;
     cursor: pointer;
     transition: all 0.5s;
+    align-items: center;
   }
   
   .login-button:hover {
@@ -206,6 +207,7 @@
     }
   
     .login-button {
+      align-items: center;
       padding-left: 140px;
       padding-right: 140px;
     }

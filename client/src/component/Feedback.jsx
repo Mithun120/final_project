@@ -401,6 +401,8 @@ function Feedback() {
                 navigate('/userhome')
             }else if(res.message=="Feedback already submitted for this week."){
                 toast.info("Feedback already submitted for this week.")
+                navigate('/userhome')
+
             } 
             
 
