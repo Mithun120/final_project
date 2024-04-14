@@ -62,7 +62,7 @@ const ProjectAllocationForm = () => {
     fetchProjectIds();
   }, []);
 
-  return (<div className="addproject">
+  return (<div className="addproject" >
 
     <div  className='container'>
       <form onSubmit={handleSubmit}>

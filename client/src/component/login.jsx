@@ -12,8 +12,8 @@ import { Password } from 'primereact/password';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import { toast } from 'react-toastify';
-// import { Application } from '@splinetool/runtime';
-
+import { Application } from '@splinetool/runtime';
+import {SplineScene} from '../component/splineScene'
 // document.addEventListener('DOMContentLoaded', () => {
 //   const canvas = document.getElementById('canvas3d');
 //   const app = new Application(canvas);
@@ -232,6 +232,7 @@ const  Login = ({ setIsLoggedIn }) => {
           
         </div>
         <div className="rightPanel">
+          {/* <SplineScene /> */}
           <img src="https://cdni.iconscout.com/illustration/premium/thumb/male-freelancer-working-on-laptop-4202191-3484369.png" className='login-img' alt='login-img'></img>
         </div>
       </div></div>

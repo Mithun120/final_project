@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../styles/signup.css'; // Assuming this is your CSS file for styling
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import {SplineLap} from "../component/splineLaptop"
 export const Signup = ({ isLoggedIn }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -120,7 +120,8 @@ export const Signup = ({ isLoggedIn }) => {
         </div>
       </div>
       <div className='rightPanel'>
-        <img src='https://static.wixstatic.com/media/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png/v1/fill/w_583,h_549,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png' className='login-img' alt='login-img' />
+        <SplineLap />
+        {/* <img src='https://static.wixstatic.com/media/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png/v1/fill/w_583,h_549,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/922e4b_e8df0d769b82457a8225ba81357cce83~mv2.png' className='login-img' alt='login-img' /> */}
       </div>
     </div>
   );

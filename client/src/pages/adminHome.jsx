@@ -2,7 +2,7 @@ import React from 'react';
 import "../styles/adminhome.css"
 import { useNavigate } from 'react-router-dom';
 import { Logout } from '../component/Logout';
- 
+//  import {FullPageContainer} from "./FullPageContainer"
 function Admindashboard({ setIsLoggedIn }) {
   const navigate = useNavigate();
  
@@ -22,6 +22,7 @@ function Admindashboard({ setIsLoggedIn }) {
   }
  
   return (
+    // <><FullPageContainer/>
     <div className="admin-dashboard">
       <div className='admin-heading'>
       <h2 className='dashboard-heading' style={{ color: '#051923'}}>Admin Dashboard</h2>
@@ -33,6 +34,7 @@ function Admindashboard({ setIsLoggedIn }) {
       <Logout setIsLoggedIn ={ setIsLoggedIn } />
       </div>
     </div>
+    // </>
   );
 }
  

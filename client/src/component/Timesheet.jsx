@@ -349,20 +349,21 @@ function TimeSheetParent() {
                         </td>
                     ))}
                     <td><p>{total}</p></td>
-                    <td><button onClick={CreateNewEntry} className="plusbtn">+</button></td>
-                    {id !== firstID && <td><button id={id} onClick={DeleteEntry} className="minusbtn">-</button></td>}
+                    <td><button onClick={CreateNewEntry} style={{padding:"7px"}} className="button-24">+</button>
+                    {id !== firstID && <button id={id} onClick={DeleteEntry}  style={{marginLeft:"4px",padding:"7px"}}  className="button-24">-</button>}</td>
                 </tr>
             );
         }
     
         return (
+            <div>
             <div className='main'>
-                <h3>Total Time: {TotalHours}</h3>
+                <h3 style={{color:"darkblue",marginTop:"-3px",marginBottom:"15px"}}>Total Time: {TotalHours}</h3>
                 {/* <p className='subHeading'>Allocation Extension</p> */}
                 <div className="MainBands">
-        <p style={{ flexGrow: 1 }}>Assigned Projects</p>
-        {!down && <GoChevronDown onClick={() => setDown(true)} />}
-        {down && <GoChevronUp onClick={() => setDown(false)} />}
+        <p style={{ flexGrow: 1,marginLeft:"10px"}}>Assigned Projects</p>
+        {!down && <GoChevronDown onClick={() => setDown(true)} className="dropdown"/>}
+        {down && <GoChevronUp onClick={() => setDown(false)} className="dropdown" />}
       </div>
 
       {down && <GoChevronDown onClick={() => setDown(false)} /> &&(
@@ -377,7 +378,7 @@ function TimeSheetParent() {
           </ul>
           
                   </tbody>
-                  <th>Project ID</th>
+                  <th>Project Name</th>
               <tbody>
               <ul>
             {Assignedprojects.map((project) => {
@@ -391,10 +392,10 @@ function TimeSheetParent() {
           </thead>
          
       )}
-
-                <p className='subHeading2'>TimeSheet</p>
+                <div className="MainBands " style={{marginTop:"4px"}}> 
+                <p style={{marginLeft:"8px"}}>TimeSheet</p></div>
                 <div className="table-container">
-                <table className="table table-borderless" >
+                <table className="table table-borderless" style={{marginTop:"4px"}} >
                     <thead>
                         <tr>
                             <th>Project Type</th>
@@ -407,6 +408,7 @@ function TimeSheetParent() {
                                 return <th key={index}>{day.toLocaleDateString('en-US', options)}</th>;
                             })}
                             <th>Total</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -414,8 +416,9 @@ function TimeSheetParent() {
                     </tbody>
                 </table>
                 </div>
-                <div>
-                     <button onClick={handleSave} className='button-29' style={{marginTop:"8%"}} label="Submit">Save</button>
+            </div>
+                <div style={{textAlign:"end"}}>
+                     <button onClick={handleSave} className='button-29' style={{marginTop:"1%"}} label="Submit">Save</button>
                     <button onClick={handleSubmit} className='button-29' label="Submit">Submit</button>
                     {/* <Logout setIsLoggedIn ={ setIsLoggedIn } className='button-62'/> */}
 
@@ -428,10 +431,10 @@ function TimeSheetParent() {
 
     return (
         <div className="time-sheet-container">
-            <h1>TimeSheet</h1>
-            <div className="time-sheet-row" style={{marginBottom:"40px"}}>
+            <h1 style={{textAlign:"left",fontSize:"40px",color:"darkblue"}} >TimeSheet</h1>
+            <div className="time-sheet-row" style={{marginBottom:"0px"}}>
                 <div className="col-md-6">
-                    <div className="date-navigation">
+                    <div style={{textAlign:"right",marginTop:"-10px"}} className="date-navigation">
                         <button onClick={handlePreviousWeek} className="button-24">&lt;</button>
                         <span>{weekdaysval[0]} - {weekdaysval[6]}</span>
                         <button onClick={handleNextWeek} className="button-24">&gt;</button>
