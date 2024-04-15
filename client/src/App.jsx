@@ -33,25 +33,7 @@ const App = () => {
     <BrowserRouter>
      <ToastContainer
   position="top-right"
-  autoClose={5000}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick
-  rtl={false}
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  style={{
-    zIndex: 9999,
-    marginTop: '3rem',
-    maxWidth: '400px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f0f0f0',
-    color: '#333',
-    fontSize: '14px',
-    padding: '16px',
-  }}
+ 
 />
 
        {loading ? (

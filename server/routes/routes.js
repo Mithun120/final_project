@@ -18,7 +18,8 @@ const transporter = nodemailer.createTransport({
       pass: "Mithun123!!",
     },
   })
-  
+ 
+
 /**
  * @swagger
  * /signup:

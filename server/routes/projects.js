@@ -5,6 +5,79 @@ let express = require('express'),
 let projectSchema=require("../schema/Project")
 const jswtUtils = require("../auth/auth_utils");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Project
+ *   description: Operations related to project management
+ * /api/project:
+ *   post:
+ *     summary: Create a new project
+ *     description: Endpoint to create a new project.
+ *     tags:
+ *       - Project
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: body
+ *         name: ProjectData
+ *         description: Project data to be submitted.
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             projectName:
+ *               type: string
+ *               description: The name of the project.
+ *             projectId:
+ *               type: string
+ *               description: The ID of the project.
+ *             category:
+ *               type: string
+ *               description: The category of the project.
+ *             startDate:
+ *               type: string
+ *               format: date
+ *               description: The start date of the project.
+ *             endDate:
+ *               type: string
+ *               format: date
+ *               description: The end date of the project.
+ *     responses:
+ *       200:
+ *         description: Project added successfully.
+ *       400:
+ *         description: Bad request, invalid input data.
+ *       401:
+ *         description: Unauthorized, JWT token missing or invalid.
+ *       500:
+ *         description: Internal server error, unable to create project.
+ */
+
+/**
+ * @swagger
+ * /api/project:
+ *   get:
+ *     summary: Get project IDs
+ *     description: Endpoint to fetch project IDs.
+ *     tags:
+ *       - Project
+ *     responses:
+ *       200:
+ *         description: Project IDs fetched successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 projectIds:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                     description: Project ID.
+ *       500:
+ *         description: Internal server error, unable to fetch project IDs.
+ */
 router.post('/project',jswtUtils.authenticateJWT, async (req, res) => {
     try {
       const { projectName, projectId, category, startDate, endDate} = req.body;

@@ -6,6 +6,71 @@ const user=require("../schema/User")
 const cron = require('node-cron');
 const timesheetModel=require('../schema/timesheet')
 const feedbackModel=require('../schema/feedback')
+
+
+/**
+ * @swagger
+  * tags:
+ *   name: Feedback
+ *   description: Operations related to feedback
+ * /api/feedback:
+ *   post:
+ *     summary: Create a new feedback entry
+ *     description: Endpoint to create a new feedback entry for a project.
+ *     tags:
+ *       - Feedback
+ *     parameters:
+ *       - in: body
+ *         name: FeedbackData
+ *         description: Feedback data to be submitted.
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             projectId:
+ *               type: string
+ *               description: The ID of the project associated with the feedback.
+ *             start_period:
+ *               type: string
+ *               format: date
+ *               description: The start date of the feedback period.
+ *             end_period:
+ *               type: string
+ *               format: date
+ *               description: The end date of the feedback period.
+ *             feedback:
+ *               type: object
+ *               description: Object containing feedback questions and comments.
+ *               properties:
+ *                 q1:
+ *                   type: integer
+ *                   description: Rating for question 1.
+ *                 q2:
+ *                   type: integer
+ *                   description: Rating for question 2.
+ *                 q3:
+ *                   type: integer
+ *                   description: Rating for question 3.
+ *                 q4:
+ *                   type: integer
+ *                   description: Rating for question 4.
+ *                 q5:
+ *                   type: integer
+ *                   description: Rating for question 5.
+ *                 q6:
+ *                   type: integer
+ *                   description: Rating for question 6.
+ *                 comments:
+ *                   type: string
+ *                   description: Additional comments provided.
+ *     responses:
+ *       200:
+ *         description: Feedback entry created successfully.
+ *       400:
+ *         description: Bad request, invalid input data.
+ *       500:
+ *         description: Internal server error, unable to create feedback entry.
+ */
 router.post('/CreateFeedback',utils.authenticateJWT,FeedbackControllers.CreateFeedbackEntry)
 
 cron.schedule("0 10 * * 5", async () => {
