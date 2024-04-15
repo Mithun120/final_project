@@ -150,11 +150,9 @@ touch-action: manipulation;
   }
 }
 
-
-
-.table th,
+/* .table th,
 .table td {
-  padding: 17px; /* Increase padding */
-  font-size: 18px; /* Increase font size */
-  line-height: 28px; /* Increase line height */
-}
+  padding: 17px; 
+  font-size: 18px; 
+  line-height: 28px; 
+}  */

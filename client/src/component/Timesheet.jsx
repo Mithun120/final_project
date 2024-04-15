@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../styles/timesheet.css"
 import { GoChevronDown, GoChevronUp, GoArrowRight } from "react-icons/go";
+import { toast } from "react-toastify";
 
 // import { Logout } from './Logout';
 function TimeSheetParent() {
@@ -83,7 +84,7 @@ function TimeSheetParent() {
                     console.log("********",temp)
                     setCheckFlag( data.payload[temp].flag);
                     // console.log(payloadArray.flag) 
-                    console.log(checkFlag)
+                    // console.log(checkFlag)
                     
                 } catch (error) {
                     console.error('Error fetching timesheet data:', error);
@@ -103,7 +104,7 @@ function TimeSheetParent() {
                     });
             
                     const data = await response.json();
-                     console.log(data.payload);
+                    //  console.log(data.payload);
 
                     SetAssignedprojects(data.payload);
                     // console.log(SetAssignedprojects)
@@ -163,7 +164,8 @@ function TimeSheetParent() {
                 // console.log(response);
                 // setTimesheetdata(data.payload)
             } catch (error) {
-                console.error('Error fetching timesheet data:', error);
+                toast.error("Error fetching timesheet data")
+                // console.error('Error fetching timesheet data:', error);
             }
         }
         const handleSave = async (e) => {
